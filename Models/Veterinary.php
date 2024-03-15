@@ -124,6 +124,18 @@ class Veterinary {
 
         return $result;
     }
+
+    public function save(){
+        $sql = "INSERT INTO veterinaries (name,address,phone,phone2,license) VALUES('{$this->getName()}','{$this->getAddress()}',{$this->getPhone()},{$this->getPhone2()},{$this->getLicense()})";
+        $save = $this->db->query($sql);
+        $result = false;
+
+        if ($save) {
+            $result = true;
+        }
+
+        return $result;
+    }
 }
 
 

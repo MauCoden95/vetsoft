@@ -44,6 +44,7 @@ if (!isLogged($_SESSION['user'])) {
                     <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/User/dashboard"><i class="fas fa-columns"></i> Dashboard</a>
                     <a class="w-full bg-emerald-800 hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/Veterinary/index"><i class="fas fa-user-md"></i> Veterinarios</a>
                     <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://"><i class="fas fa-bone"></i> Pacientes</a>
+                    <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/Owner/index"><i class="fas fa-user"></i> Clientes</a>
                     <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://"><i class="far fa-calendar"></i> Turnos</a>
                     <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://"><i class="far fa-user"></i> Usuarios</a>
                 </div>
@@ -65,12 +66,13 @@ if (!isLogged($_SESSION['user'])) {
 
             
 
-            <form class="w-5/6 min-h-0 m-auto my-12" action="http://localhost/VetSoft/Veterinary/update/<?php echo $id ?>" method="post">
+            <form class="relative w-5/6 min-h-0 m-auto my-12" action="http://localhost/VetSoft/Veterinary/update/<?php echo $id ?>" method="post">
+                <a class="text-xl" href="http://localhost/VetSoft/Veterinary/index"><i class="fas fa-arrow-left"></i> Volver</a>
                 <h2 class="w-full text-center text-3xl mb-6">Editar veterinario <i class="fas fa-pencil"></i></h2>
                 <?php if(isset($_SESSION['update_vet']) && $_SESSION['update_vet']): ?>
-                    <span class="block w-3/6 m-auto text-center p-3 bg-green-700 text-white rounded-md mb-5">Veterinario actualizado con exito</span>
+                    <span class="block w-full m-auto text-center p-3 bg-green-600 border-4 border-green-900 text-white rounded-md mb-5">Veterinario actualizado con exito</span>
                 <?php elseif(isset($_SESSION['update_vet']) && !$_SESSION['update_vet']): ?>
-                    <span class="block w-3/6 m-auto text-center p-3 bg-red-700 text-white rounded-md mb-5">Error al actualizar, revise los campos</span>
+                    <span class="block w-full m-auto text-center p-3 bg-red-600 border-4 border-red-900 text-white rounded-md mb-5">Error al actualizar, revise los campos</span>
                 <?php endif; ?>
                 <div class="w-full min-h-0 grid grid-cols-2 grid-rows-3 gap-4">
                     <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->name); ?>" type="text" name="name">
