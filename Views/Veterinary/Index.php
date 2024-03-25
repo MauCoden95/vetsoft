@@ -45,14 +45,14 @@ if (!isLogged($_SESSION['user'])) {
                 <div class="w-full min-h-0">
                     <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/User/dashboard"><i class="fas fa-columns"></i> Dashboard</a>
                     <a class="w-full bg-emerald-800 hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="#"><i class="fas fa-user-md"></i> Veterinarios</a>
-                    <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href=""><i class="fas fa-bone"></i> Pacientes</a>
+                    <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/Patient/index"><i class="fas fa-bone"></i> Pacientes</a>
                     <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/Owner/index"><i class="fas fa-user"></i> Clientes</a>
                     <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://"><i class="far fa-calendar"></i> Turnos</a>
                     <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://"><i class="far fa-user"></i> Usuarios</a>
                 </div>
                 <div class="border-b border-gray-300 my-5"></div>
                 <div class="w-full min-h-0">
-                    <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://"><i class="fas fa-cog"></i> Mi perfil</a>
+                    <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/User/settings"><i class="fas fa-cog"></i> Mi perfil</a>
                     <a class="w-full bg-red-500 hover:bg-red-950 hover:text-white py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/User/logout"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                 </div>
             </div>
@@ -81,10 +81,11 @@ if (!isLogged($_SESSION['user'])) {
                     <tr class="w-full">
                         <th class="w-1/12 bg-emerald-300 py-2 border border-black">#</th>
                         <th class="w-2/12 bg-emerald-300 py-2 border border-black">Nombre</th>
+                        <th class="w-2/12 bg-emerald-300 py-2 border border-black">Especialidad</th>
                         <th class="w-2/12 bg-emerald-300 py-2 border border-black">Dirección</th>
                         <th class="w-1/12 bg-emerald-300 py-2 border border-black">Teléfono</th>
                         <th class="w-1/12 bg-emerald-300 py-2 border border-black">Teléfono2</th>
-                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Licencia</th>
+                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Matrícula</th>
                         <th class="w-1/12 bg-emerald-300 py-2 border border-black">Acciones</th>
                     </tr>
                 </thead>
@@ -93,6 +94,7 @@ if (!isLogged($_SESSION['user'])) {
                         <tr>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $vet->id; ?></td>
                             <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $vet->name; ?></td>
+                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $vet->specialty; ?></td>
                             <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $vet->address; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $vet->phone; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $vet->phone2; ?></td>
@@ -120,13 +122,14 @@ if (!isLogged($_SESSION['user'])) {
                     <?php elseif (isset($_SESSION['save_vet']) && !$_SESSION['save_vet']) : ?>
                         <span class="block w-full m-auto text-center p-1 bg-red-600 border-4 border-red-900 text-white rounded-md mb-5">Error al guardar, revise los campos</span>
                     <?php endif; ?>
-                    <div class="w-full h-full grid grid-cols-2 grid-rows-3 gap-2">
+                    <div class="w-full h-full grid grid-cols-2 grid-rows-4 gap-2">
                         <input class="w-full m-auto my-3 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="name" placeholder="Nombre...">
+                        <input class="w-full m-auto my-3 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="specialty" placeholder="Especialidad...">
                         <input class="w-full m-auto my-3 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="address" placeholder="Dirección...">
                         <input class="w-full m-auto my-3 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="number" name="phone" placeholder="Teléfono...">
                         <input class="w-full m-auto my-3 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="number" name="phone2" placeholder="Segundo teléfono...">
                         <input class="w-full m-auto my-3 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="number" name="license" placeholder="Matricula...">
-                        <input class="cursor-pointer w-full m-auto my-3 py-3 px-5 bg-emerald-500 hover:bg-emerald-800" type="submit" value="Enviar">
+                        <input class="col-span-2 cursor-pointer w-full m-auto my-3 py-3 px-5 bg-emerald-500 hover:bg-emerald-800" type="submit" value="Enviar">
                     </div>
                 </form>
             </div>

@@ -50,7 +50,7 @@ if (!isLogged($_SESSION['user'])) {
                 </div>
                 <div class="border-b border-gray-300 my-5"></div>
                 <div class="w-full min-h-0">
-                    <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://"><i class="fas fa-cog"></i> Mi perfil</a>
+                    <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/User/settings"><i class="fas fa-cog"></i> Mi perfil</a>
                     <a class="w-full bg-red-500 hover:bg-red-950 hover:text-white py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/User/logout"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                 </div>
             </div>
@@ -76,11 +76,12 @@ if (!isLogged($_SESSION['user'])) {
                 <?php endif; ?>
                 <div class="w-full min-h-0 grid grid-cols-2 grid-rows-3 gap-4">
                     <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->name); ?>" type="text" name="name">
+                    <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->specialty); ?>" type="text" name="specialty">
                     <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->address); ?>" type="text" name="address">
                     <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->phone); ?>" type="number" name="phone">
                     <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->phone2); ?>" type="number" name="phone2">
                     <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->license); ?>" type="number" name="license">
-                    <input class="cursor-pointer block w-full m-auto bg-emerald-600 hover:bg-emerald-800 px-2 py-3 my-3" value="Editar" type="submit">
+                    <input class="col-span-2 cursor-pointer block w-full m-auto bg-emerald-600 hover:bg-emerald-800 px-2 py-3 my-3" value="Editar" type="submit">
                 </div>
 
             </form>

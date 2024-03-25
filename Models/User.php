@@ -111,6 +111,20 @@ class User{
     }
 
 
+    public function changePassword($id){
+        $sql = "UPDATE users SET password = '{$this->getPassword()}' WHERE id = {$id}";
+        $update = $this->db->query($sql);
+        
+
+        $result = false;
+
+        if ($update) {
+            $result = true;
+        }
+
+        
+        return $result;
+    }
 
 
 }

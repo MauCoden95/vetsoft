@@ -9,6 +9,8 @@ class Veterinary {
     private $phone;
     private $phone2;
     private $license;
+    private $specialty;
+
 
     private $db;
 
@@ -41,6 +43,16 @@ class Veterinary {
         return $this->license;
     }
 
+    public function getSpecialty() {
+        return $this->specialty;
+    }
+
+
+
+
+
+
+
     // Setters
     public function setId($id) {
         $this->id = $id;
@@ -65,6 +77,12 @@ class Veterinary {
     public function setLicense($license) {
         $this->license = $license;
     }
+
+    public function setSpecialty($specialty) {
+        $this->specialty = $specialty;
+    }
+
+
 
 
 
@@ -113,7 +131,8 @@ class Veterinary {
 
 
     public function update($id){
-        $sql = "UPDATE veterinaries SET name = '{$this->getName()}', address = '{$this->getAddress()}', phone = {$this->getPhone()}, phone2 = {$this->getPhone2()}, license = {$this->getLicense()} WHERE id = {$id}";
+        $sql = "UPDATE veterinaries SET name = '{$this->getName()}', address = '{$this->getAddress()}', phone = {$this->getPhone()}, phone2 = {$this->getPhone2()}, license = {$this->getLicense()}, specialty = '{$this->getSpecialty()}' WHERE id = {$id}";
+        
         $query = $this->db->query($sql);
 
         $result = false;
@@ -126,7 +145,9 @@ class Veterinary {
     }
 
     public function save(){
-        $sql = "INSERT INTO veterinaries (name,address,phone,phone2,license) VALUES('{$this->getName()}','{$this->getAddress()}',{$this->getPhone()},{$this->getPhone2()},{$this->getLicense()})";
+        $sql = "INSERT INTO veterinaries (name,address,phone,phone2,license,specialty) VALUES('{$this->getName()}','{$this->getAddress()}',{$this->getPhone()},{$this->getPhone2()},{$this->getLicense()},'{$this->getSpecialty()}')";
+
+        
         $save = $this->db->query($sql);
         $result = false;
 

@@ -65,6 +65,7 @@ class VeterinaryController
             $phone = isset($_POST['phone']) ? $_POST['phone'] : '';
             $phone2 = isset($_POST['phone2']) ? $_POST['phone2'] : '';
             $license = isset($_POST['license']) ? $_POST['license'] : '';
+            $specialty = isset($_POST['specialty']) ? $_POST['specialty'] : '';
 
             if ($name == '' || $address == '' || $phone == '' || $phone2 == '' || $license == '') {
                 $_SESSION['update_vet'] = false;
@@ -74,6 +75,7 @@ class VeterinaryController
                 $veterinary->setPhone($phone);
                 $veterinary->setPhone2($phone2);
                 $veterinary->setLicense($license);
+                $veterinary->setSpecialty($specialty);
 
                 $update = $veterinary->update($id);
 
@@ -102,8 +104,9 @@ class VeterinaryController
             $phone = $_POST['phone'];
             $phone2 = $_POST['phone2'];
             $license = $_POST['license'];
+            $specialty = $_POST['specialty'];
 
-            if ($name == '' || $address == '' || $phone == '' || $phone2 == '' || $license == '') {
+            if ($name == '' || $address == '' || $phone == '' || $phone2 == '' || $license == '' || $specialty == '') {
                 $_SESSION['save_vet'] = false;
             } else {
                 $veterinary->setName($name);
@@ -111,7 +114,7 @@ class VeterinaryController
                 $veterinary->setPhone($phone);
                 $veterinary->setPhone2($phone2);
                 $veterinary->setLicense($license);
-
+                $veterinary->setSpecialty($specialty);
 
                 $save = $veterinary->save();
 
