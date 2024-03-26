@@ -75,8 +75,13 @@ if (!isLogged($_SESSION['user'])) {
                 <button id="add" class="absolute top-6 right-10 rounded-md bg-emerald-400 hover:bg-emerald-600 py-2 px-5 duration-300 text-xl">Agregar <i class="fas fa-plus-circle"></i></button>
             </div>
 
+            <div class="w-11/12 m-auto mt-32">
+                <h4 class="text-2xl"><i class="fas fa-search"></i> Buscar</h4>
+                <input id="searchInput" class="w-full bg-gray-50 py-3 px-2  border-b-2 border-gray-300 outline-none mt-5" type="text" placeholder="Buscar por nombre o dni...">
+            </div>
 
-            <table class="w-11/12 m-auto mt-32 mb-10">
+
+            <table id="dataTable" class="w-11/12 m-auto mt-12 mb-10">
                 <thead>
                     <tr class="w-full">
                         <th class="w-1/12 bg-emerald-300 py-2 border border-black">#</th>

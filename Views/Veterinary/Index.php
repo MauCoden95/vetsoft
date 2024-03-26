@@ -76,7 +76,12 @@ if (!isLogged($_SESSION['user'])) {
             </div>
 
 
-            <table class="w-11/12 m-auto mt-32 mb-10">
+            <div class="w-11/12 m-auto mt-32">
+                <h4 class="text-2xl"><i class="fas fa-search"></i> Buscar</h4>
+                <input id="searchInput" class="w-full bg-gray-50 py-3 px-2  border-b-2 border-gray-300 outline-none mt-5" type="text" placeholder="Buscar por nombre...">
+            </div>
+
+            <table id="dataTable" class="w-11/12 m-auto mt-8 mb-10">
                 <thead>
                     <tr class="w-full">
                         <th class="w-1/12 bg-emerald-300 py-2 border border-black">#</th>

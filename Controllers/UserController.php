@@ -66,6 +66,7 @@ class UserController
                 header('Location: /VetSoft/User/dashboard');
                 exit();
             } else {
+                $_SESSION['login'] = false;
                 header('Location: /VetSoft/User/index');
                 exit();
             }
