@@ -108,11 +108,11 @@ class Owner
 
     public function list(){
         $sql = "SELECT * FROM owners;";
-        $veterinaries = $this->db->query($sql);
+        $owners = $this->db->query($sql);
 
      
 
-        return $veterinaries;
+        return $owners;
     }
 
     public function delete($id){

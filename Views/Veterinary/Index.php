@@ -105,7 +105,7 @@ if (!isLogged($_SESSION['user'])) {
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $vet->phone2; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $vet->license; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
-                                <a href="http://localhost/VetSoft/Veterinary/edit/<?php echo $vet->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-8"></i></a>
+                                <a href="http://localhost/VetSoft/Veterinary/edit/<?php echo $vet->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
                                 <a href="http://localhost/VetSoft/Veterinary/delete/<?php echo $vet->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
                             </td>
                         </tr>

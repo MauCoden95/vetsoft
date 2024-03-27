@@ -105,18 +105,18 @@ if (!isLogged($_SESSION['user'])) {
                         if ($ageMonths > 0) {
                             $ageString .= ", " . $ageMonths . " meses";
                         }
-                        
-                        ?>
+
+                    ?>
                         <tr>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->id; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->name; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->animal; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->breed; ?></td>
-                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $ageString; ?></td> 
+                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $ageString; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->gender; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
-                                <a href="http://localhost/VetSoft/Owner/edit/<?php echo $pat->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
                                 <a class="text-emerald-500 duration-300 hover:underline" title="Info del dueño" href="http://localhost/VetSoft/Owner/ownerData/<?php echo $pat->owner_id ?>"><i class="text-xl fas fa-book text-blue-500 hover:text-blue-800 mr-5"></i></a>
+                                <a href="http://localhost/VetSoft/Owner/edit/<?php echo $pat->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
                                 <a href="http://localhost/VetSoft/Owner/delete/<?php echo $pat->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
                             </td>
                         </tr>
@@ -131,20 +131,30 @@ if (!isLogged($_SESSION['user'])) {
         <div class="absolute hidden duration-400 top-0 left-0 container_form w-screen h-screen bg-black bg-opacity-80 flex items-center justify-center">
             <i id="hidden" class="cursor-pointer absolute top-5 right-5 duration-300 text-white hover:text-gray-400 text-6xl fas fa-times-circle"></i>
             <div class="w-3/5 h-auto py-7 px-5 bg-white rounded-md">
-                <form class="w-full min-h-0 flex flex-col" action="http://localhost/VetSoft/Owner/save" method="post" autocomplete="off">
-                    <h2 class="text-center text-3xl my-3">Agregar cliente <i class="fas fa-user"></i></h2>
-                    <?php if (isset($_SESSION['save_own']) && $_SESSION['save_own']) : ?>
+                <form class="w-full min-h-0 flex flex-col" action="http://localhost/VetSoft/Patient/save" method="post" autocomplete="off">
+                    <h2 class="text-center text-3xl my-3 mb-10">Agregar paciente <i class="fas fa-bone"></i></h2>
+                    <?php if (isset($_SESSION['save_pat']) && $_SESSION['save_pat']) : ?>
                         <span class="block w-full m-auto text-center p-1 bg-green-600 border-4 border-green-900 text-white rounded-md mb-5">Cliente guardado con exito</span>
-                    <?php elseif (isset($_SESSION['save_own']) && !$_SESSION['save_own']) : ?>
+                    <?php elseif (isset($_SESSION['save_pat']) && !$_SESSION['save_pat']) : ?>
                         <span class="block w-full m-auto text-center p-1 bg-red-600 border-4 border-red-900 text-white rounded-md mb-5">Error al guardar, revise los campos</span>
                     <?php endif; ?>
                     <div class="w-full h-full grid grid-cols-2 grid-rows-4 gap-2">
+                        <select id="owner_id" name="owner_id">
+                            <option value="">--Dueño--</option>
+                            <?php while ($own = $owners->fetch_object()) : ?>
+                                <option value="<?= $own->id; ?>"><?= $own->name; ?></option>
+                            <?php endwhile; ?>
+                        </select>
+
                         <input class="w-full m-auto my-1 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="name" placeholder="Nombre...">
-                        <input class="w-full m-auto my-1 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="dni" placeholder="Dni...">
-                        <input class="w-full m-auto my-1 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="number" name="phone" placeholder="Teléfono...">
-                        <input class="w-full m-auto my-1 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="number" name="phone2" placeholder="Segundo teléfono...">
-                        <input class="w-full m-auto my-1 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="mail" placeholder="Correo...">
-                        <input class="w-full m-auto my-1 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="address" placeholder="Dirección...">
+                        <input class="w-full m-auto my-1 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="animal" placeholder="Animal...">
+                        <input class="w-full m-auto my-1 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="breed" placeholder="Raza...">
+                        <input class="w-full m-auto my-1 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="date" name="birth" placeholder="Nacimiento...">
+                        <select id="gender" name="gender">
+                            <option value="">--Género--</option>
+                            <option value="M">M</option>
+                            <option value="F">F</option>
+                        </select>
                         <input class="col-span-2 cursor-pointer w-full m-auto my-3 py-3 px-5 bg-emerald-500 hover:bg-emerald-800" type="submit" value="Enviar">
                     </div>
                 </form>
