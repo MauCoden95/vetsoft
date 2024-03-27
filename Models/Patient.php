@@ -84,4 +84,14 @@ class Patient
         return $count;       
     }
 
+    public function data(){
+        $sql = "SELECT * FROM patients";
+        $query = $this->db->query($sql);
+
+       
+
+        
+
+        return $query;       
+    }
 }

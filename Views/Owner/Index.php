@@ -105,8 +105,8 @@ if (!isLogged($_SESSION['user'])) {
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $own->mail; ?></td>
                             <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $own->address; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
-                                <a href="http://localhost/VetSoft/Owner/edit/<?php echo $own->id ?>"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-8"></i></a>
-                                <a href="http://localhost/VetSoft/Owner/delete/<?php echo $own->id ?>"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
+                                <a href="http://localhost/VetSoft/Owner/edit/<?php echo $own->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-8"></i></a>
+                                <a href="http://localhost/VetSoft/Owner/delete/<?php echo $own->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
                             </td>
                         </tr>
                     <?php endwhile; ?>

@@ -7,6 +7,7 @@ class PatientController
     {
         $patient = new Patient();
         $count = $patient->count();
+        $patients = $patient->data();
 
         //$data['count'] = $count;
 

@@ -128,6 +128,18 @@ class OwnerController{
         header('Location: http://localhost/VetSoft/Owner/edit/'.$id);
         exit();
     }
+
+    public function ownerData(){
+        $owner = new Owner();
+
+        $url = explode('/', $_GET['url']);
+        $id = $url[2];
+
+        $dataOwner = $owner->data($id);
+
+
+        require_once 'Views/Owner/DataOwner.php';
+    }
 }
 
 

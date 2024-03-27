@@ -142,10 +142,10 @@ class Owner
 
        
         $query = $this->db->query($sql);
-        $result = $query->fetch_object();
+        
        
         
-        return $result;
+        return $query;
     }
 
     public function update($id){

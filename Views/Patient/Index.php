@@ -62,7 +62,7 @@ if (!isLogged($_SESSION['user'])) {
 
         <div class="w-4/5 h-full overflow-y-scroll">
             <div class="w-full min-h-0 py-10 px-10 flex items-center justify-between shadow-md">
-                <h1 class="text-4xl">Clientes</h1>
+                <h1 class="text-4xl">Pacientes</h1>
                 <h2 class="text-2xl">Bienvenido, <?php print_r($_SESSION['user']->name) ?></h2>
             </div>
             <div class="relative w-full min-h-[100px]">
@@ -75,34 +75,49 @@ if (!isLogged($_SESSION['user'])) {
                 <button id="add" class="absolute top-6 right-10 rounded-md bg-emerald-400 hover:bg-emerald-600 py-2 px-5 duration-300 text-xl">Agregar <i class="fas fa-plus-circle"></i></button>
             </div>
 
-            
+            <div class="w-11/12 m-auto mt-32">
+                <h4 class="text-2xl"><i class="fas fa-search"></i> Buscar</h4>
+                <input id="searchInput" class="w-full bg-gray-50 py-3 px-2  border-b-2 border-gray-300 outline-none mt-5" type="text" placeholder="Buscar por nombre...">
+            </div>
 
-            <table class="w-11/12 m-auto mt-32 mb-10">
+            <table id="dataTable" class="w-11/12 m-auto mt-8 mb-10">
                 <thead>
                     <tr class="w-full">
                         <th class="w-1/12 bg-emerald-300 py-2 border border-black">#</th>
-                        <th class="w-2/12 bg-emerald-300 py-2 border border-black">Nombre</th>
-                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Dni</th>
-                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Teléfono</th>
-                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Teléfono2</th>
-                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Correo electrónico</th>
-                        <th class="w-2/12 bg-emerald-300 py-2 border border-black">Dirección</th>
+                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Nombre</th>
+                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Animal</th>
+                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Raza</th>
+                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Edad</th>
+                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Sexo</th>
                         <th class="w-1/12 bg-emerald-300 py-2 border border-black">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($own = $owners->fetch_object()) : ?>
+                    <?php
+                    $currentDate = new DateTime();
+                    while ($pat = $patients->fetch_object()) :
+
+                        $birthDate = new DateTime($pat->birth);
+                        $age = $birthDate->diff($currentDate);
+                        $ageYears = $age->y;
+                        $ageMonths = $age->m;
+                        $ageString = $ageYears . " años";
+                        if ($ageMonths > 0) {
+                            $ageString .= ", " . $ageMonths . " meses";
+                        }
+                        
+                        ?>
                         <tr>
-                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $own->id; ?></td>
-                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $own->name; ?></td>
-                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $own->dni; ?></td>
-                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $own->phone; ?></td>
-                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $own->phone2; ?></td>
-                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $own->mail; ?></td>
-                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $own->address; ?></td>
+                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->id; ?></td>
+                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->name; ?></td>
+                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->animal; ?></td>
+                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->breed; ?></td>
+                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $ageString; ?></td> 
+                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->gender; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
-                                <a href="http://localhost/VetSoft/Owner/edit/<?php echo $own->id ?>"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-8"></i></a>
-                                <a href="http://localhost/VetSoft/Owner/delete/<?php echo $own->id ?>"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
+                                <a href="http://localhost/VetSoft/Owner/edit/<?php echo $pat->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
+                                <a class="text-emerald-500 duration-300 hover:underline" title="Info del dueño" href="http://localhost/VetSoft/Owner/ownerData/<?php echo $pat->owner_id ?>"><i class="text-xl fas fa-book text-blue-500 hover:text-blue-800 mr-5"></i></a>
+                                <a href="http://localhost/VetSoft/Owner/delete/<?php echo $pat->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
