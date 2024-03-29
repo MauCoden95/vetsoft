@@ -48,7 +48,7 @@ class Patient
 
     public function getGender()
     {
-        return $this->birth;
+        return $this->gender;
     }
 
 
@@ -102,10 +102,41 @@ class Patient
         return $query;       
     }
 
+    public function dataById($id){
+        $sql = "SELECT * FROM patients WHERE id = {$id}";
+        $query = $this->db->query($sql);
+
+        return $query;       
+    }
+
     public function add(){
         $result = false;
         $sql = "INSERT INTO patients (owner_id,name,animal,breed,birth,gender) VALUES({$this->getOwnerId()}, '{$this->getName()}', '{$this->getAnimal()}', '{$this->getBreed()}', '{$this->getBirth()}', '{$this->getGender()}')";
         $query = $this->db->query($sql);
+
+        if ($query) {
+            $result = true;
+        }
+
+        return $result;
+    }
+
+    public function delete($id){
+        $sql = "DELETE FROM patients WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $id);
+    
+        $result = $stmt->execute();
+        
+        return $result;
+    }
+
+
+    public function update($id){
+        $sql = "UPDATE patients SET owner_id = {$this->getOwnerId()}, name = '{$this->getName()}', animal = '{$this->getAnimal()}', breed = '{$this->getBreed()}', birth = '{$this->getBirth()}', gender = '{$this->getGender()}' WHERE id = {$id}";
+        $query = $this->db->query($sql);
+
+        $result = false;
 
         if ($query) {
             $result = true;

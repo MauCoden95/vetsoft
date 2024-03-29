@@ -58,15 +58,17 @@
                 <?php elseif(isset($_SESSION['update_own']) && !$_SESSION['update_own']): ?>
                     <span class="block w-full m-auto text-center p-3 bg-red-600 border-4 border-red-900 text-white rounded-md mb-5">Error al actualizar, revise los campos</span>
                 <?php endif; ?>
-                <div class="w-full min-h-0 grid grid-cols-2 grid-rows-3 gap-4">
-                    <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->name); ?>" type="text" name="name">
-                    <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->dni); ?>" type="number" name="dni">
-                    <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->phone); ?>" type="number" name="phone">
-                    <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->phone2); ?>" type="number" name="phone2">
-                    <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->mail); ?>" type="email" name="mail">
-                    <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->address); ?>" type="text" name="address">
-                    <input class="col-span-2 cursor-pointer block w-full m-auto bg-emerald-600 hover:bg-emerald-800 px-2 py-3 my-3" value="Editar" type="submit">
-                </div>
+                <?php while ($own = $data->fetch_object()) : ?>
+                    <div class="w-full min-h-0 grid grid-cols-2 grid-rows-3 gap-4">
+                        <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($own->name); ?>" type="text" name="name">
+                        <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($own->dni); ?>" type="number" name="dni">
+                        <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($own->phone); ?>" type="number" name="phone">
+                        <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($own->phone2); ?>" type="number" name="phone2">
+                        <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($own->mail); ?>" type="email" name="mail">
+                        <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($own->address); ?>" type="text" name="address">
+                        <input class="col-span-2 cursor-pointer block w-full m-auto bg-emerald-600 hover:bg-emerald-800 px-2 py-3 my-3" value="Editar" type="submit">
+                    </div>
+                <?php endwhile; ?>
 
             </form>
 

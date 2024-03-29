@@ -91,23 +91,28 @@ class UserController
             $user = new User();
 
             $psw1 = isset($_POST['pw1']) ? $_POST['pw1'] : '';
-            $psw2 = isset($_POST['pw2']) ? $_POST['pw2'] : '';
+            $psw2 = isset($_POST['pw2']) ? $_POST['pw2'] : '';         
 
-            $user->setPassword($psw1);
-            //var_dump($psw2);
-            $user->changePassword($_SESSION['user']->id);
-            $_SESSION['change_success'] = "Contraseña cambiada con exito!!!";
-
-            // if ($psw1 == '' || $psw2 == '') {
-            //     $_SESSION['change_failed'] = "Campos vacíos";
-            // } else {
-            //     if ($psw1 != $psw2) {
-            //         $_SESSION['change_failed'] = "Las contraseñas no coinciden";
-            //     } else {
-            //     }
-            // }
+            if ($psw1 == '' || $psw2 == '') {
+                $_SESSION['change_failed'] = "Campos vacíos";
+                var_dump($_SESSION['change_failed']);
+            } else {
+                if ($psw1 != $psw2) {
+                    $_SESSION['change_failed'] = "Las contraseñas no coinciden";
+                    var_dump($_SESSION['change_failed']);
+                } else {
+                    $user->setPassword($psw1);
+                    $change = $user->changePassword($_SESSION['user']->id);
+                    
+        
+                    if ($change) {
+                        $_SESSION['change_success'] = "Contraseña cambiada con exito!!!";
+                        unset($_SESSION['change_failed']);
+                    }
+                }
+            }
         }
 
-        //header('Location: /VetSoft/User/settings');
+        header('Location: /VetSoft/User/settings');
     }
 }
