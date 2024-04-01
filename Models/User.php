@@ -91,7 +91,7 @@ class User{
 
 
     public function login($mail,$password){
-        $sql = "SELECT * FROM users WHERE mail = '$mail'";
+        $sql = "SELECT users.*, roles.role AS user_type FROM users INNER JOIN roles ON users.role_id = roles.id WHERE mail = '$mail'";
         $query = $this->db->query($sql);
 
         $result = false;

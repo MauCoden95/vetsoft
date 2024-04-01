@@ -1,5 +1,8 @@
 <?php
 require_once 'Models/User.php';
+require_once 'Models/Owner.php';
+require_once 'Models/Patient.php';
+require_once 'Models/Veterinary.php';
 
 class UserController
 {
@@ -41,6 +44,14 @@ class UserController
 
     public function dashboard()
     {
+        $owner = new Owner();
+        $patient = new Patient();
+        $veterinary = new Veterinary();
+
+        $owners_count = $owner->count();
+        $patients_count = $patient->count();
+        $veterinaries_count = $veterinary->count();
+
         require_once 'Views/User/Dashboard.php';
     }
 

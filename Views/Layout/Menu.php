@@ -7,6 +7,8 @@ if (!isLogged($_SESSION['user'])) {
     $userType = $_SESSION['user']->user_type;
 }
 
+unset($_SESSION['update_pat']);
+
 ?>
 
 <!DOCTYPE html>
@@ -48,26 +50,26 @@ if (!isLogged($_SESSION['user'])) {
                     <div class="w-full min-h-0">
                         <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/User/dashboard"><i class="fas fa-columns"></i> Dashboard</a>
                         <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/Veterinary/index"><i class="fas fa-user-md"></i> Veterinarios</a>
-                        <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/Patient/index"><i class="fas fa-bone"></i> Pacientes</a>
+                        <a class="w-full bg-emerald-800 hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/Patient/index"><i class="fas fa-bone"></i> Pacientes</a>
                         <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/Owner/index"><i class="fas fa-user"></i> Clientes</a>
                         <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://"><i class="far fa-calendar"></i> Turnos</a>
                         <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://"><i class="far fa-user"></i> Usuarios</a>
                     </div>
                     <div class="border-b border-gray-300 my-5"></div>
                     <div class="w-full min-h-0">
-                        <a class="w-full bg-emerald-800  hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/User/settings"><i class="fas fa-cog"></i> Mi perfil</a>
+                        <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/User/settings"><i class="fas fa-cog"></i> Mi perfil</a>
                         <a class="w-full bg-red-500 hover:bg-red-950 hover:text-white py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/User/logout"><i class="fas fa-sign-out-alt mr-1"></i>Cerrar sesión</a>
                     </div>
                 <?php else: ?>
                     <div class="w-full min-h-0">
                         <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/User/dashboard"><i class="fas fa-columns"></i> Dashboard</a>
-                        <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/Patient/index"><i class="fas fa-bone"></i> Pacientes</a>
+                        <a class="w-full bg-emerald-800 hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/Patient/index"><i class="fas fa-bone"></i> Pacientes</a>
                         <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/Owner/index"><i class="fas fa-user"></i> Clientes</a>
                         <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://"><i class="far fa-calendar"></i> Turnos</a>
                     </div>
                     <div class="border-b border-gray-300 my-5"></div>
                     <div class="w-full min-h-0">
-                        <a class="w-full bg-emerald-800  hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/User/settings"><i class="fas fa-cog"></i> Mi perfil</a>
+                        <a class="w-full hover:bg-white hover:text-emerald-900 py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/User/settings"><i class="fas fa-cog"></i> Mi perfil</a>
                         <a class="w-full bg-red-500 hover:bg-red-950 hover:text-white py-1 px-2 my-2 rounded-md text-white text-xl block duration-300" href="http://localhost/VetSoft/User/logout"><i class="fas fa-sign-out-alt mr-1"></i>Cerrar sesión</a>
                     </div>
                 <?php endif; ?>
@@ -75,30 +77,3 @@ if (!isLogged($_SESSION['user'])) {
 
 
         </div>
-
-        <div class="w-4/5 h-full overflow-y-scroll">
-            <div class="w-full min-h-0 py-10 px-10 flex items-center justify-between shadow-md">
-                <h1 class="text-4xl">Cambiar contraseña</h1>
-                <h2 class="text-2xl">Bienvenido, <?php print_r($_SESSION['user']->name) ?></h2>
-            </div>
-
-
-            <form class="w-4/6 h-72 m-auto mt-20" action="<?= base_url ?>User/change" method="post">
-                <?php if (isset($_SESSION['change_success'])) :  ?>
-                    <span class="block w-4/5 m-auto text-center p-1 bg-green-600 border-4 border-green-900 text-white rounded-md mb-5"><?php print_r($_SESSION['change_success']); ?></span>
-                <?php elseif (isset($_SESSION['change_failed'])) :  ?>
-                    <span class="block w-4/5 m-auto text-center p-1 bg-red-600 border-4 border-red-900 text-white rounded-md mb-5"><?php print_r($_SESSION['change_failed']); ?></span>
-                <?php endif; ?>
-                <input class="block w-4/5 p-2 m-auto mt-5 bg-gray-100 border-b-2 border-green-500" type="password" name="pw1" placeholder="Ingrese contraseña...">
-                <input class="block w-4/5 p-2 m-auto mt-5 bg-gray-100 border-b-2 border-green-500" type="password" name="pw2" placeholder="Confirme contraseña...">
-                <input class="cursor-pointer block w-4/5 p-2 m-auto mt-14 bg-green-400 hover:bg-green-600" type="submit" value="Cambiar">
-            </form>
-
-
-        </div>
-
-
-    </section>
-</body>
-
-</html>
