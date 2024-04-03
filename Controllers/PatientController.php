@@ -33,7 +33,7 @@ class PatientController
 
 
                 if ($owner_id == '' || $name == '' || $animal == '' || $breed == '' || $birth == '' || $gender == '') {
-                   return;
+                    header('Location: /VetSoft/Patient/index');
                 }
 
                 $patient->setOwnerId($owner_id);

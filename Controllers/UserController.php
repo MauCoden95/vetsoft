@@ -64,23 +64,26 @@ class UserController
             $password = isset($_POST['password']) ? $_POST['password'] : '';
 
 
-            if (empty($mail) || empty($password)) {
-                return;
-            }
+            if (!empty($mail) || !empty($password)) {
+                $login = $user->login($mail, $password);
 
-            $login = $user->login($mail, $password);
-
-            if ($login) {
-                session_start();
-                $_SESSION['user'] = $login;
-                unset($_SESSION['login']);
-                header('Location: /VetSoft/User/dashboard');
-                exit();
-            } else {
+                if ($login) {
+                    session_start();
+                    $_SESSION['user'] = $login;
+                    unset($_SESSION['login']);
+                    header('Location: /VetSoft/User/dashboard');
+                    exit();
+                } else {
+                    $_SESSION['login'] = false;
+                    header('Location: /VetSoft/User/index');
+                    exit();
+                }    
+            }else{
                 $_SESSION['login'] = false;
                 header('Location: /VetSoft/User/index');
-                exit();
             }
+
+            
         }
     }
 
