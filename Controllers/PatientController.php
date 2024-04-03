@@ -110,7 +110,7 @@ class PatientController
             $birth = isset($_POST['birth']) ? $_POST['birth'] : '';
             $gender = isset($_POST['gender']) ? $_POST['gender'] : '';
 
-            //echo $owner_id.' '.$name.' '.$animal.' '.$breed.' '.$birth.' '.$gender;
+            
 
             if ($owner_id == '' || $name == '' || $animal == '' || $breed == '' || $birth == '' || $gender == '') {
                 $_SESSION['update_pat'] = false;
@@ -129,9 +129,9 @@ class PatientController
                 
 
                 if ($update) {
-                    $_SESSION['update_pat'] = true;
+                    $_SESSION['update_patient'] = true;
                 } else {
-                    $_SESSION['update_pat'] = false;
+                    $_SESSION['update_patient'] = false;
                 }
 
                 

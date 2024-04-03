@@ -62,11 +62,34 @@
             <div class="w-3/5 h-auto py-2 px-5 bg-white rounded-md">
                 <form class="w-full min-h-0 flex flex-col" action="http://localhost/VetSoft/Veterinary/save" method="post" autocomplete="off">
                     <h2 class="text-center text-3xl my-3">Agregar veterinario <i class="fas fa-user-md"></i></h2>
-                    <?php if (isset($_SESSION['save_vet']) && $_SESSION['save_vet']) : ?>
-                        <span class="block w-full m-auto text-center p-1 bg-green-600 border-4 border-green-900 text-white rounded-md mb-5">Veterinario guardado con exito</span>
-                    <?php elseif (isset($_SESSION['save_vet']) && !$_SESSION['save_vet']) : ?>
-                        <span class="block w-full m-auto text-center p-1 bg-red-600 border-4 border-red-900 text-white rounded-md mb-5">Error al guardar, revise los campos</span>
-                    <?php endif; ?>
+                    <?php
+                    if (isset($_SESSION['save_vet']) && $_SESSION['save_vet'] == true) {
+                        $res = $_SESSION['save_vet']; ?>
+                        <script>
+                            localStorage.setItem("state_owner", false);
+                            Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: "Exito!!!",
+                                html: "<p style='font-size: 18px;'>Se agregó el veterinario de manera correcta</p>",
+                                timer: 5000,
+                                showConfirmButton: true,
+                                confirmButtonText: "OK",
+                            });
+                        </script>
+                    <?php
+                        unset($_SESSION['save_vet']);
+                    } elseif (isset($_SESSION['save_vet']) && $_SESSION['save_vet'] == false) {
+                        $res = $_SESSION['save_vet']; ?>
+                        <script>
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                text: "Campos inválidos"
+                            });
+                        </script>
+                    <?php }
+                    ?>
                     <div class="w-full h-full grid grid-cols-2 grid-rows-4 gap-2">
                         <input class="w-full m-auto my-3 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="name" placeholder="Nombre...">
                         <input class="w-full m-auto my-3 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="specialty" placeholder="Especialidad...">
@@ -80,7 +103,7 @@
             </div>
         </div>
 
-    </section>
-</body>
+        </section>
+        </body>
 
-</html>
+        </html>

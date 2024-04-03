@@ -11,11 +11,34 @@
             <form class="relative w-5/6 min-h-0 m-auto my-6" action="http://localhost/VetSoft/Patient/update/<?php echo $id ?>" method="post">
                 <a class="text-xl" href="http://localhost/VetSoft/Patient/index"><i class="fas fa-arrow-left"></i> Volver</a>
                 <h2 class="w-full text-center text-3xl mb-6">Editar paciente <i class="fas fa-pencil"></i></h2>
-                <?php if (isset($_SESSION['update_pat']) && $_SESSION['update_pat']) : ?>
-                    <span class="block w-full m-auto text-center p-3 bg-green-600 border-4 border-green-900 text-white rounded-md mb-5">Paciente actualizado con exito</span>
-                <?php elseif (isset($_SESSION['update_pat']) && !$_SESSION['update_pat']) : ?>
-                    <span class="block w-full m-auto text-center p-3 bg-red-600 border-4 border-red-900 text-white rounded-md mb-5">Error al actualizar, revise los campos</span>
-                <?php endif; ?>
+                
+                <?php
+                if (isset($_SESSION['update_patient']) && $_SESSION['update_patient'] == true) {
+                    $res = $_SESSION['update_patient']; ?>
+                    <script>
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Exito!!!",
+                            html: "<p style='font-size: 18px;'>Se actualizó el paciente de manera correcta</p>",
+                            timer: 5000,
+                            showConfirmButton: true,
+                            confirmButtonText: "OK",
+                        });
+                    </script>
+                <?php
+                    unset($_SESSION['update_patient']);
+                } elseif (isset($_SESSION['update_patient']) && $_SESSION['update_patient'] == false) {
+                    $res = $_SESSION['update_patient']; ?>
+                    <script>
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Campos inválidos"
+                        });
+                    </script>
+                <?php }
+                ?>
 
              
                 <?php while ($pat = $data->fetch_object()) : ?>

@@ -109,7 +109,7 @@ class UserController
 
             if ($psw1 == '' || $psw2 == '') {
                 $_SESSION['change_failed'] = "Campos vacíos";
-                var_dump($_SESSION['change_failed']);
+                //var_dump($_SESSION['change_failed']);
             } else {
                 if ($psw1 != $psw2) {
                     $_SESSION['change_failed'] = "Las contraseñas no coinciden";

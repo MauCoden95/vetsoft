@@ -6,16 +6,39 @@
                 <h2 class="text-2xl">Bienvenido, <?php print_r($_SESSION['user']->name) ?></h2>
             </div>
 
-            
+
 
             <form class="relative w-5/6 min-h-0 m-auto my-12" action="http://localhost/VetSoft/Veterinary/update/<?php echo $id ?>" method="post">
                 <a class="text-xl" href="http://localhost/VetSoft/Veterinary/index"><i class="fas fa-arrow-left"></i> Volver</a>
                 <h2 class="w-full text-center text-3xl mb-6">Editar veterinario <i class="fas fa-pencil"></i></h2>
-                <?php if(isset($_SESSION['update_vet']) && $_SESSION['update_vet']): ?>
-                    <span class="block w-full m-auto text-center p-3 bg-green-600 border-4 border-green-900 text-white rounded-md mb-5">Veterinario actualizado con exito</span>
-                <?php elseif(isset($_SESSION['update_vet']) && !$_SESSION['update_vet']): ?>
-                    <span class="block w-full m-auto text-center p-3 bg-red-600 border-4 border-red-900 text-white rounded-md mb-5">Error al actualizar, revise los campos</span>
-                <?php endif; ?>
+                <?php
+                if (isset($_SESSION['update_vet']) && $_SESSION['update_vet'] == true) {
+                    $res = $_SESSION['update_vet']; ?>
+                    <script>
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Exito!!!",
+                            html: "<p style='font-size: 18px;'>Se actualizó el veterinario de manera correcta</p>",
+                            timer: 5000,
+                            showConfirmButton: true,
+                            confirmButtonText: "OK",
+                        });
+                    </script>
+                <?php
+                    unset($_SESSION['update_vet']);
+                } elseif (isset($_SESSION['update_vet']) && $_SESSION['update_vet'] == false) {
+                    $res = $_SESSION['update_vet']; ?>
+                    <script>
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Campos inválidos"
+                        });
+                    </script>
+                <?php }
+                ?>
+
                 <div class="w-full min-h-0 grid grid-cols-2 grid-rows-3 gap-4">
                     <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->name); ?>" type="text" name="name">
                     <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->specialty); ?>" type="text" name="specialty">
@@ -33,7 +56,7 @@
 
 
 
-    </section>
-</body>
+        </section>
+        </body>
 
-</html>
+        </html>

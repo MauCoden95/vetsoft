@@ -7,11 +7,42 @@
 
 
             <form class="w-4/6 h-72 m-auto mt-20" action="<?= base_url ?>User/change" method="post">
-                <?php if (isset($_SESSION['change_success'])) :  ?>
-                    <span class="block w-4/5 m-auto text-center p-1 bg-green-600 border-4 border-green-900 text-white rounded-md mb-5"><?php print_r($_SESSION['change_success']); ?></span>
-                <?php elseif (isset($_SESSION['change_failed'])) :  ?>
-                    <span class="block w-4/5 m-auto text-center p-1 bg-red-600 border-4 border-red-900 text-white rounded-md mb-5"><?php print_r($_SESSION['change_failed']); ?></span>
-                <?php endif; ?>
+                <?php
+                if (isset($_SESSION['change_success']) && $_SESSION['change_success'] == true) {
+                    $res = $_SESSION['change_success']; ?>
+                    <script>
+                        localStorage.setItem("state_owner", false);
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Exito!!!",
+                            html: "<p style='font-size: 18px;'>Contraseña cambiada correctamente</p>",
+                            timer: 5000,
+                            showConfirmButton: true,
+                            confirmButtonText: "OK",
+                        });
+                    </script>
+                <?php
+                    unset($_SESSION['change_success']);
+                }
+                ?>
+                <?php 
+                if (isset($_SESSION['change_failed'])) { ?>
+                    <script>
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: "Error",
+                            timer: 3000,
+                            text: "<?php echo $_SESSION['change_failed'] ?>"
+                        });
+                    </script>
+                    <?php
+                    unset($_SESSION['change_failed']);
+                    ?>
+
+                <?php }
+                ?>
                 <input class="block w-4/5 p-2 m-auto mt-5 bg-gray-100 border-b-2 border-green-500" type="password" name="pw1" placeholder="Ingrese contraseña...">
                 <input class="block w-4/5 p-2 m-auto mt-5 bg-gray-100 border-b-2 border-green-500" type="password" name="pw2" placeholder="Confirme contraseña...">
                 <input class="cursor-pointer block w-4/5 p-2 m-auto mt-14 bg-green-400 hover:bg-green-600" type="submit" value="Cambiar">
@@ -21,7 +52,7 @@
         </div>
 
 
-    </section>
-</body>
+        </section>
+        </body>
 
-</html>
+        </html>
