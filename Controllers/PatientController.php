@@ -70,7 +70,8 @@ class PatientController
             $delete = $patient->delete($id);
 
             if ($delete) {
-                header('Location: http://localhost/VetSoft/Patient/index');
+                header("Location: http://localhost/VetSoft/Patient/index");
+                exit();
             }
         }
     }
@@ -145,5 +146,58 @@ class PatientController
     }
 
 
+    public function patientsByOwner(){
+        $patient = new Patient();
+        $url = explode('/', $_GET['url']);
+        $id = $url[2];
 
+        $patients = $patient->patientsByOwner($id);
+
+      
+
+        require_once('Views/Patient/PatientByOwner.php');
+    }
+
+
+    public function saveByOwner(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $patient = new Patient();
+
+            if ($_POST) {
+                $name = isset($_POST['name']) ? $_POST['name'] : '';
+                $animal = isset($_POST['animal']) ? $_POST['animal'] : '';
+                $breed = isset($_POST['breed']) ? $_POST['breed'] : '';
+                $birth = isset($_POST['birth']) ? $_POST['birth'] : '';
+                $gender = isset($_POST['gender']) ? $_POST['gender'] : '';
+
+             
+                $url = explode('/', $_GET['url']);
+                $id = $url[2];
+
+                if ($name == '' || $animal == '' || $breed == '' || $birth == '' || $gender == '') {
+                    header('Location: /VetSoft/Patient/index');
+                }
+
+                $patient->setOwnerId($id);
+                $patient->setName($name);
+                $patient->setAnimal($animal);
+                $patient->setBreed($breed);
+                $patient->setBirth($birth);
+                $patient->setGender($gender);
+
+                $save = $patient->addPatientByOwnerId();
+
+                if ($save) {
+                    $_SESSION['save_pat_own'] = true;
+                }else{
+                    $_SESSION['save_pat_own'] = false;
+                }
+
+            }
+
+
+
+            header('Location: /VetSoft/Patient/patientsByOwner/'.$id);
+        }
+    }
 }

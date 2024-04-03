@@ -38,7 +38,7 @@
                     <?php while ($own = $owners->fetch_object()) : ?>
                         <tr>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $own->id; ?></td>
-                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $own->name; ?></td>
+                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><a class="text-emerald-600 hover:text-emerald-800 hover:underline" href="http://localhost/VetSoft/Patient/patientsByOwner/<?php echo $own->id ?>"><?= $own->name; ?></a></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $own->dni; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $own->phone; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $own->phone2; ?></td>

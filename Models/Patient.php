@@ -144,4 +144,29 @@ class Patient
 
         return $result;
     }
+
+    public function patientsByOwner($id){
+        $sql = "SELECT p.id, p.name, p.animal, p.breed, p.birth, p.gender FROM patients p JOIN owners o ON p.owner_id = o.id WHERE o.id = {$id};";
+        $query = $this->db->query($sql);
+
+        $result = false;
+
+        if ($query) {
+            $result = $query;
+        }
+
+        return $result;
+    }
+
+    public function addPatientByOwnerId(){
+        $result = false;
+        $sql = "INSERT INTO patients (owner_id,name,animal,breed,birth,gender) VALUES({$this->getOwnerId()}, '{$this->getName()}', '{$this->getAnimal()}', '{$this->getBreed()}', '{$this->getBirth()}', '{$this->getGender()}')";
+        $query = $this->db->query($sql);
+
+        if ($query) {
+            $result = true;
+        }
+
+        return $result;
+    }
 }
