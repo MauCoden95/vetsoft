@@ -26,18 +26,25 @@
                         });
                     </script>
                 <?php
-                    unset($_SESSION['update_vet']);
-                } elseif (isset($_SESSION['update_vet']) && $_SESSION['update_vet'] == false) {
-                    $res = $_SESSION['update_vet']; ?>
+                }
+                ?>
+                <?php
+                if (isset($_SESSION['update_vet_failed'])) { ?>
                     <script>
                         Swal.fire({
+                            position: "center",
                             icon: "error",
                             title: "Error",
-                            text: "Campos inválidos"
+                            timer: 3000,
+                            text: "<?php echo $_SESSION['update_vet_failed'] ?>"
                         });
                     </script>
-                <?php }
+
+                <?php
+                }
+                unset($_SESSION['update_vet_failed']);
                 ?>
+
 
                 <div class="w-full min-h-0 grid grid-cols-2 grid-rows-3 gap-4">
                     <input class="block w-full border-b-2 m-auto border-emerald-600 bg-gray-100 px-2 py-3 my-3" value="<?php print_r($data->name); ?>" type="text" name="name">

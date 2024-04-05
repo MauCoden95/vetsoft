@@ -55,9 +55,10 @@
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $ageString; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->gender; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
-                                <a class="text-emerald-500 duration-300 hover:underline" title="Info del dueño" href="http://localhost/VetSoft/Owner/ownerData/<?php echo $pat->owner_id ?>"><i class="text-xl fas fa-book text-blue-500 hover:text-blue-800 mr-5"></i></a>
-                                <a href="http://localhost/VetSoft/Patient/edit/<?php echo $pat->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
-                                <a href="http://localhost/VetSoft/Patient/delete/<?php echo $pat->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
+                                <a class="text-emerald-500 duration-300 hover:underline" title="Info del dueño" href="http://localhost/VetSoft/Owner/ownerData/<?php echo $pat->owner_id ?>"><i class="text-xl fas fa-book text-blue-500 hover:text-blue-800 mr-2"></i></a>
+                                <a href="http://localhost/VetSoft/Patient/edit/<?php echo $pat->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-2"></i></a>
+                                <a href="http://localhost/VetSoft/Patient/delete/<?php echo $pat->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800 mr-2"></i></a>
+                                <a href="http://localhost/VetSoft/Turn/addTurnPatient/<?php echo $pat->id ?>" title="Agendar Turno"><i class="text-xl far fa-calendar text-green-500 hover:text-green-800"></i></a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
@@ -84,22 +85,29 @@
                                 title: "Exito!!!",
                                 html: "<p style='font-size: 18px;'>Se agregó el paciente de manera correcta</p>",
                                 timer: 5000,
-                                showConfirmButton: true, 
+                                showConfirmButton: true,
                                 confirmButtonText: "OK",
                             });
                         </script>
                     <?php
-                        unset($_SESSION['save_pat']);
-                    } elseif (isset($_SESSION['save_pat']) && $_SESSION['save_pat'] == false) {
-                        $res = $_SESSION['save_pat']; ?>
+                    }
+                    unset($_SESSION['save_pat']);
+                    ?>
+                    <?php
+                    if (isset($_SESSION['save_pat_failed'])) { ?>
                         <script>
                             Swal.fire({
+                                position: "center",
                                 icon: "error",
                                 title: "Error",
-                                text: "Campos inválidos"
+                                timer: 3000,
+                                text: "<?php echo $_SESSION['save_pat_failed'] ?>"
                             });
                         </script>
-                    <?php }
+
+                    <?php
+                    }
+                    unset($_SESSION['save_pat_failed']);
                     ?>
                     <div class="w-full h-full grid grid-cols-2 grid-rows-4 gap-2">
                         <select id="owner_id" name="owner_id">

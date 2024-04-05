@@ -169,4 +169,17 @@ class Patient
 
         return $result;
     }
+
+    public function getNameById($id){
+        $sql = "SELECT name FROM patients WHERE id = {$id}";
+        $query = $this->db->query($sql);
+
+        $result = false;
+
+        if ($query) {
+            $result = $query->fetch_object();
+        }
+
+        return $result;
+    }
 }

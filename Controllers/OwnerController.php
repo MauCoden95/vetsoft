@@ -46,7 +46,7 @@ class OwnerController{
 
 
             if ($name == '' || $dni == '' || $phone == '' || $phone2 == '' || $mail == '' || $address == '') {
-                $_SESSION['save_own'] = false;
+                $_SESSION['save_own_failed'] = "Campos vacíos";
             } else {
                 $owner->setName($name);
                 $owner->setDni($dni);
@@ -61,7 +61,7 @@ class OwnerController{
                 if ($save) {
                     $_SESSION['save_own'] = true;
                 } else {
-                    $_SESSION['save_own'] = false;
+                    $_SESSION['save_own_failed'] = "Error al guardar el cliente";
                 }
             }
         }
@@ -104,7 +104,7 @@ class OwnerController{
             $address = isset($_POST['address']) ? $_POST['address'] : '';
 
             if ($name == '' || $dni == '' || $phone == '' || $phone2 == '' || $mail == ''|| $address == '') {
-                $_SESSION['update_own'] = false;
+                $_SESSION['update_own_failed'] = "Campos vacíos";
             } else {
                 $owner->setName($name);
                 $owner->setDni($dni);
@@ -120,7 +120,7 @@ class OwnerController{
                 if ($update) {
                     $_SESSION['update_own'] = true;
                 } else {
-                    $_SESSION['update_own'] = false;
+                    $_SESSION['update_own_failed'] = "Error al actualizar el cliente";
                 }
             }
         }

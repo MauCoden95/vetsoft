@@ -27,19 +27,24 @@
                         });
                     </script>
                 <?php
-                    unset($_SESSION['update_patient']);
-                } elseif (isset($_SESSION['update_patient']) && $_SESSION['update_patient'] == false) {
-                    $res = $_SESSION['update_patient']; ?>
-                    <script>
-                        Swal.fire({
-                            icon: "error",
-                            title: "Error",
-                            text: "Campos inválidos"
-                        });
-                    </script>
-                <?php }
+                    unset($_SESSION['update_patient']);}
                 ?>
+                <?php
+                    if (isset($_SESSION['update_patient_failed'])) { ?>
+                        <script>
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: "Error",
+                                timer: 3000,
+                                text: "<?php echo $_SESSION['update_patient_failed'] ?>"
+                            });
+                        </script>
 
+                    <?php
+                    }
+                    unset($_SESSION['update_patient_failed']);
+                    ?>
              
                 <?php while ($pat = $data->fetch_object()) : ?>
                     <div class="w-full min-h-0 grid grid-cols-2 grid-rows-3 gap-4">

@@ -33,6 +33,7 @@ class PatientController
 
 
                 if ($owner_id == '' || $name == '' || $animal == '' || $breed == '' || $birth == '' || $gender == '') {
+                    $_SESSION['save_pat_failed'] = "Campos vacíos";
                     header('Location: /VetSoft/Patient/index');
                 }
 
@@ -48,7 +49,7 @@ class PatientController
                 if ($save) {
                     $_SESSION['save_pat'] = true;
                 }else{
-                    $_SESSION['save_pat'] = false;
+                    $_SESSION['save_pat_failed'] = "Error al guardar el paciente";
                 }
 
             }
@@ -114,7 +115,7 @@ class PatientController
             
 
             if ($owner_id == '' || $name == '' || $animal == '' || $breed == '' || $birth == '' || $gender == '') {
-                $_SESSION['update_pat'] = false;
+                $_SESSION['update_patient_failed'] = "Campos vacíos";
             } else {
                 $patient->setOwnerId($owner_id);
                 $patient->setName($name);
@@ -132,7 +133,7 @@ class PatientController
                 if ($update) {
                     $_SESSION['update_patient'] = true;
                 } else {
-                    $_SESSION['update_patient'] = false;
+                    $_SESSION['update_patient_failed'] = "Error al actualizar el paciente";
                 }
 
                 

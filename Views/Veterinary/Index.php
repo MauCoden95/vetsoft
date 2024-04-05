@@ -40,7 +40,7 @@
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $vet->id; ?></td>
                             <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $vet->name; ?></td>
                             <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $vet->specialty; ?></td>
-                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $vet->address; ?></td>
+                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2 px-1"><?= $vet->address; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $vet->phone; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $vet->phone2; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $vet->license; ?></td>
@@ -63,8 +63,7 @@
                 <form class="w-full min-h-0 flex flex-col" action="http://localhost/VetSoft/Veterinary/save" method="post" autocomplete="off">
                     <h2 class="text-center text-3xl my-3">Agregar veterinario <i class="fas fa-user-md"></i></h2>
                     <?php
-                    if (isset($_SESSION['save_vet']) && $_SESSION['save_vet'] == true) {
-                        $res = $_SESSION['save_vet']; ?>
+                    if (isset($_SESSION['save_vet']) && $_SESSION['save_vet'] == true) { ?>
                         <script>
                             localStorage.setItem("state_owner", false);
                             Swal.fire({
@@ -78,18 +77,26 @@
                             });
                         </script>
                     <?php
-                        unset($_SESSION['save_vet']);
-                    } elseif (isset($_SESSION['save_vet']) && $_SESSION['save_vet'] == false) {
-                        $res = $_SESSION['save_vet']; ?>
+                    }
+                    unset($_SESSION['save_vet']);
+                    ?>
+                    <?php
+                    if (isset($_SESSION['save_vet_failed'])) { ?>
                         <script>
                             Swal.fire({
+                                position: "center",
                                 icon: "error",
                                 title: "Error",
-                                text: "Campos inválidos"
+                                timer: 3000,
+                                text: "<?php echo $_SESSION['save_vet_failed'] ?>"
                             });
                         </script>
-                    <?php }
+                        
+                    <?php
+                    }
+                    unset($_SESSION['save_vet_failed']);
                     ?>
+                    
                     <div class="w-full h-full grid grid-cols-2 grid-rows-4 gap-2">
                         <input class="w-full m-auto my-3 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="name" placeholder="Nombre...">
                         <input class="w-full m-auto my-3 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="specialty" placeholder="Especialidad...">

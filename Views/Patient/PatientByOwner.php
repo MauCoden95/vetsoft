@@ -13,7 +13,10 @@
     </div>
 
     
-
+    <?php
+        $patientCount = $patients->num_rows;
+        if($patientCount > 0) :
+    ?>
     <table id="dataTable" class="w-11/12 m-auto mt-8 mb-10">
         <thead>
             <tr class="w-full">
@@ -29,6 +32,7 @@
         <tbody>
             <?php
             $currentDate = new DateTime();
+            
             while ($pat = $patients->fetch_object()) :
                 $birthDate = new DateTime($pat->birth);
                 $age = $birthDate->diff($currentDate);
@@ -54,7 +58,10 @@
             <?php endwhile; ?>
         </tbody>
     </table>
-
+    <?php else: ?>
+        <h2 class="text-center text-3xl">No hay pacientes relacionados a este cliente</h2>
+    <?php endif; ?>
+    
 
 
     

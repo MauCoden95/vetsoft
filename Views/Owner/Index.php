@@ -20,7 +20,7 @@
                 <input id="searchInput" class="w-full bg-gray-50 py-3 px-2  border-b-2 border-gray-300 outline-none mt-5" type="text" placeholder="Buscar por nombre o dni...">
             </div>
 
-
+            
             <table id="dataTable" class="w-11/12 m-auto mt-8 mb-10">
                 <thead>
                     <tr class="w-full">
@@ -73,23 +73,31 @@
                                 title: "Exito!!!",
                                 html: "<p style='font-size: 18px;'>Se agregó el cliente de manera correcta</p>",
                                 timer: 5000,
-                                showConfirmButton: true, 
+                                showConfirmButton: true,
                                 confirmButtonText: "OK",
                             });
                         </script>
                     <?php
                         unset($_SESSION['save_own']);
-                    } elseif (isset($_SESSION['save_own']) && $_SESSION['save_own'] == false) {
-                        $res = $_SESSION['save_own']; ?>
+                    }
+                    ?>
+                    <?php
+                    if (isset($_SESSION['save_own_failed'])) { ?>
                         <script>
                             Swal.fire({
+                                position: "center",
                                 icon: "error",
                                 title: "Error",
-                                text: "Campos inválidos"
+                                timer: 3000,
+                                text: "<?php echo $_SESSION['save_own_failed'] ?>"
                             });
                         </script>
-                    <?php }
+
+                    <?php
+                    }
+                    unset($_SESSION['save_own_failed']);
                     ?>
+
                     <div class="w-full h-full grid grid-cols-2 grid-rows-4 gap-2">
                         <input class="w-full m-auto my-1 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="name" placeholder="Nombre...">
                         <input class="w-full m-auto my-1 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="dni" placeholder="Dni...">
@@ -103,7 +111,7 @@
             </div>
         </div>
 
-    </section>
-</body>
+        </section>
+        </body>
 
-</html>
+        </html>

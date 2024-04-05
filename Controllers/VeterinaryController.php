@@ -67,8 +67,8 @@ class VeterinaryController
             $license = isset($_POST['license']) ? $_POST['license'] : '';
             $specialty = isset($_POST['specialty']) ? $_POST['specialty'] : '';
 
-            if ($name == '' || $address == '' || $phone == '' || $phone2 == '' || $license == '') {
-                $_SESSION['update_vet'] = false;
+            if ($specialty == '' || $name == '' || $address == '' || $phone == '' || $phone2 == '' || $license == '') {
+                $_SESSION['update_vet_failed'] = "Campos vacíos";
             } else {
                 $veterinary->setName($name);
                 $veterinary->setAddress($address);
@@ -82,7 +82,7 @@ class VeterinaryController
                 if ($update) {
                     $_SESSION['update_vet'] = true;
                 } else {
-                    $_SESSION['update_vet'] = false;
+                    $_SESSION['update_vet_failed'] = "Error al actualizar el veterinario";
                 }
             }
         }
@@ -107,7 +107,7 @@ class VeterinaryController
             $specialty = $_POST['specialty'];
 
             if ($name == '' || $address == '' || $phone == '' || $phone2 == '' || $license == '' || $specialty == '') {
-                $_SESSION['save_vet'] = false;
+                $_SESSION['save_vet_failed'] = "Campos vacíos";
             } else {
                 $veterinary->setName($name);
                 $veterinary->setAddress($address);
@@ -120,8 +120,9 @@ class VeterinaryController
 
                 if ($save) {
                     $_SESSION['save_vet'] = true;
+                    unset($_SESSION['save_vet_failed']);
                 } else {
-                    $_SESSION['save_vet'] = false;
+                    $_SESSION['save_vet_failed'] = "Hubo un error al guardar";
                 }
             }
         }
