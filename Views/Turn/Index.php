@@ -74,52 +74,89 @@ $action = $url[1];
                     end: '2100-01-01'
                 },
                 dateClick: function(info) {
-                    var selectedDate = moment(info.date);
-                    var dayOfWeekName = selectedDate.format('dddd');
+                    var clickedDate = info.date;
+                    var formattedDate = clickedDate.getFullYear() + '-' +
+                        ('0' + (clickedDate.getMonth() + 1)).slice(-2) + '-' +
+                        ('0' + clickedDate.getDate()).slice(-2);
 
-
-                    if (dayOfWeekName == 'Sunday') {
-                        return false;
-                    } else {
-                        //Colocar en el input de la fecha, la fecha elegida
-                        var inputDate = document.getElementById("date");
-                        inputDate.value = info.dateStr;
-
-
-                        //Colocar en el input del id, el id del paciente
-                        var url = window.location.href;
-                        var regex = /\/(\d+)$/;
-                        var match = url.match(regex);
-                        document.getElementById('h4').value = match[1];
-
-
-                        //Mostrar en la ventana, la fecha elegida
-                        var selectedDate = info.dateStr;
-                        var formattedDate = formatDate(selectedDate);
-                        document.getElementById('selected-date').textContent = formattedDate;
-
-                        //Abrir ventana
-                        $("#popup").show();
-
-                    }
+                    getTurnsByDay(formattedDate);
+                    $("#popup").show();
 
                 }
             });
             calendar.render();
 
-            function formatDate(dateString) {
-                var dateParts = dateString.split("-");
-                return dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
-            }
-
             $("#close-popup").click(function() {
                 $("#popup").hide();
             });
 
+            function getTurnsByDay(date) {
+                $.ajax({
+                    url: 'http://localhost/VetSoft/Turn/getDateByDay/' + date,
+                    type: 'GET',
+                    success: function(response) {
+                        localStorage.removeItem('turns');
+                        var object = JSON.parse(response);
+                        var objectJSON = JSON.stringify(object);
+                        localStorage.setItem('turns', objectJSON);
+                        showTurnsTable();
+                    },
+                    error: function(xhr, status, error) {}
+                });
+            }
+
+            function showTurnsTable() {
+                $(document).ready(function() {
+                    var storedTurns = localStorage.getItem('turns');
 
 
 
+                    if (storedTurns) {
+                        var turns = JSON.parse(storedTurns);
+                        console.log(turns.length);
 
+                        if (turns.length === 0) {
+                            $("#turns_table").html("<tr><td class='text-center text-xl'>No hay turnos registrados</td></tr>");
+                        } else {
+                            function createTableRow(turn) {
+                                var dateFormat = moment(turn.fecha).format('DD-MM-YYYY');
+                                var hourSplit = turn.hora.split('');
+                                hourSplit.splice(hourSplit.length - 3, 3);
+                                hourFormat = hourSplit.join('');
+                                var row = "<tr>";
+                                row += "<td class='w-1/5 border border-black text-center py-1'>" + turn.nombre_paciente + "</td>";
+                                row += "<td class='w-1/5 border border-black text-center py-1'>" + dateFormat + "</td>";
+                                row += "<td class='w-1/5 border border-black text-center py-1'>" + hourFormat + "</td>";
+                                row += "<td class='w-1/5 border border-black text-center py-1'>" + turn.cita + "</td>";
+                                row += "<td class='w-1/6 border border-black text-center py-1'>" + "<button><i class='mr-5 fas fa-edit text-2xl text-blue-500 hover:text-blue-800'></i></button>" + "<button><i class='fas fa-trash text-2xl text-red-500 hover:text-red-800'></i></button>" + "</td>";
+                                row += "</tr>";
+                                return row;
+                            }
+                            var table = $("#turns_table");
+                            table.empty();
+
+                            var headerRow = "<tr>";
+                            headerRow += '<th class="w-1/5 bg-emerald-500 border border-black py-1">Paciente</th>';
+                            headerRow += '<th class="w-1/5 bg-emerald-500 border border-black py-1">Fecha</th>';;
+                            headerRow += '<th class="w-1/5 bg-emerald-500 border border-black py-1">Hora</th>';
+                            headerRow += '<th class="w-1/5 bg-emerald-500 border border-black py-1">Motivo</th>';
+                            headerRow += '<th class="w-1/6 bg-emerald-500 border border-black py-1">Acciones</th>';
+                            headerRow += "</tr>";
+
+                            table.append(headerRow);
+
+
+                            turns.forEach(function(turn) {
+                                table.append(createTableRow(turn));
+                            });
+                        }
+
+
+
+                    }
+                });
+
+            }
         });
     </script>
 
@@ -163,3 +200,35 @@ $action = $url[1];
 
 
         </div>
+
+        <div class="w-4/5 h-full overflow-y-scroll">
+            <div class="ollin w-full min-h-0 py-10 px-10 flex items-center justify-between shadow-md">
+                <h1 class="text-4xl">Turnos</h1>
+                <h2 class="text-2xl">Bienvenido, <?php print_r($_SESSION['user']->name) ?></h2>
+            </div>
+
+
+
+
+
+            <div class="w-11/12 m-auto mt-12 mb-12" id='calendar'></div>
+
+            <div id="popup" class="absolute hidden duration-400 top-0 left-0 container_form w-screen h-screen bg-black bg-opacity-80 flex items-center justify-center">
+                <i id="close-popup" class="cursor-pointer absolute top-5 right-5 duration-300 text-white hover:text-gray-400 text-6xl fas fa-times-circle"></i>
+
+                <div class="overflow-scroll	absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5/6 h-[500px] bg-white rounded-md z-40">
+                    <h2 class="text-center text-3xl my-14">Los turnos de hoy</h2>
+                    <table class="w-5/6 m-auto mt-8" id="turns_table">
+                        <h2 id="empty"></h2>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+</body>
+
+</html>

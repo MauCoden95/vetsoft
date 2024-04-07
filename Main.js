@@ -1,11 +1,14 @@
+//Mostrar formularios
 const btnAdd = document.querySelector("#add");
 const btnAddHidden = document.querySelector("#hidden");
 const containerForm = document.querySelector(".container_form");
 
-btnAdd.addEventListener("click", () => {
-  containerForm.classList.remove("hidden");
-  localStorage.setItem("state_owner", true);
-});
+if (btnAdd) {
+  btnAdd.addEventListener("click", () => {
+    containerForm.classList.remove("hidden");
+    localStorage.setItem("state_owner", true);
+  });
+}
 
 btnAddHidden.addEventListener("click", () => {
   containerForm.classList.add("hidden");
@@ -49,29 +52,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
-  // Calendario
-  var calendarEl = document.getElementById("calendar"); 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    plugins: ["dayGrid"], 
-    header: {
-      left: "prev,next today",
-      center: "title",
-      right: "dayGridMonth,dayGridWeek,dayGridDay",
-    },
-    defaultDate: "2024-04-03", 
-    editable: true, 
-    eventLimit: true,
-    events: [
-      {
-        title: "Evento 1",
-        start: "2024-04-01",
-      },
-      {
-        title: "Evento 2",
-        start: "2024-04-05",
-      },
-    ],
-  });
-  calendar.render();
 });
