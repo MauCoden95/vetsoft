@@ -96,7 +96,20 @@ class Turn {
         return $turns;
     }
     
-    
+    public function todayTurns(){
+        $sql = "SELECT t.*, p.name AS patient_name
+        FROM turns t
+        INNER JOIN patients p ON t.patient_id = p.id
+        WHERE DATE_FORMAT(t.date, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d');
+        ";
+        $query = $this->db->query($sql);
+
+        if ($query) {
+            $result = $query;
+        }
+
+        return $result;
+    }
 }
 
 ?>

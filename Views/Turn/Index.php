@@ -79,6 +79,10 @@ $action = $url[1];
                         ('0' + (clickedDate.getMonth() + 1)).slice(-2) + '-' +
                         ('0' + clickedDate.getDate()).slice(-2);
 
+
+                    var dateSpan = moment(formattedDate).format('DD-MM-YYYY');
+                    document.getElementById('day_turn').textContent = dateSpan;
+
                     getTurnsByDay(formattedDate);
                     $("#popup").show();
 
@@ -89,6 +93,8 @@ $action = $url[1];
             $("#close-popup").click(function() {
                 $("#popup").hide();
             });
+
+
 
             function getTurnsByDay(date) {
                 $.ajax({
@@ -157,6 +163,8 @@ $action = $url[1];
                 });
 
             }
+
+
         });
     </script>
 
@@ -207,17 +215,46 @@ $action = $url[1];
                 <h2 class="text-2xl">Bienvenido, <?php print_r($_SESSION['user']->name) ?></h2>
             </div>
 
+         
+
+            <h2 class="text-center text-3xl mt-12 mb-5">Los turnos de hoy</h2>
+            <table id="dataTable" class="w-11/12 m-auto mt-8 mb-10">
+                <thead>
+                    <tr class="w-full">
+                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">#</th>
+                        <th class="w-2/12 bg-emerald-300 py-2 border border-black">Nombre</th>
+                        <th class="w-2/12 bg-emerald-300 py-2 border border-black">Fecha</th>
+                        <th class="w-2/12 bg-emerald-300 py-2 border border-black">Hora</th>
+                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Motivo</th>
+                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($tur = $turns->fetch_object()) : ?>
+                        <tr>
+                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $tur->id; ?></td>
+                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $tur->patient_name; ?></td>
+                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $tur->date; ?></td>
+                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2 px-1"><?= $tur->hour; ?></td>
+                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $tur->appointment; ?></td>
+                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
+                                <a href="http://localhost/VetSoft/Veterinary/edit/<?php echo $tur->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
+                                <a href="http://localhost/VetSoft/Veterinary/delete/<?php echo $tur->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
 
 
-
-
+            <h2 class="text-center text-3xl mt-12 mb-5">Consultar turnos por fecha</h2>
             <div class="w-11/12 m-auto mt-12 mb-12" id='calendar'></div>
 
             <div id="popup" class="absolute hidden duration-400 top-0 left-0 container_form w-screen h-screen bg-black bg-opacity-80 flex items-center justify-center">
                 <i id="close-popup" class="cursor-pointer absolute top-5 right-5 duration-300 text-white hover:text-gray-400 text-6xl fas fa-times-circle"></i>
 
                 <div class="overflow-scroll	absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5/6 h-[500px] bg-white rounded-md z-40">
-                    <h2 class="text-center text-3xl my-14">Los turnos de hoy</h2>
+                    <h2 class="text-center text-3xl my-14">Los turnos del día <span id="day_turn"></span></h2>
                     <table class="w-5/6 m-auto mt-8" id="turns_table">
                         <h2 id="empty"></h2>
                     </table>

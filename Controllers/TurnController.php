@@ -7,6 +7,9 @@ class TurnController
 {
     public function index()
     {
+        $turn = new Turn();
+        $turns = $turn->todayTurns();
+
         require_once('Views/Turn/Index.php');
     }
 
@@ -67,4 +70,7 @@ class TurnController
         
         echo json_encode($turns);
     }
+
+
+   
 }
