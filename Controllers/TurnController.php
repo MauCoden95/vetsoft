@@ -71,6 +71,26 @@ class TurnController
         echo json_encode($turns);
     }
 
+    public function getTurnsByPatient(){
+        $turn = new Turn();
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = isset($_POST['name']) ? $_POST['name'] : '';
+
+            $turnsByPatient = $turn->turnsByPatient($name);
+
+           
+
+            if ($turnsByPatient) {
+                $_SESSION['turnsByPatient'] = $turnsByPatient;
+            }else{
+                $_SESSION['turnsByPatient'] = [];
+            }
+        }
+
+        header('Location: http://localhost/VetSoft/Turn/index');
+    }
+
+ 
    
 }

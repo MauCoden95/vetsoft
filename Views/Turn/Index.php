@@ -215,28 +215,31 @@ $action = $url[1];
                 <h2 class="text-2xl">Bienvenido, <?php print_r($_SESSION['user']->name) ?></h2>
             </div>
 
-         
+
 
             <h2 class="text-center text-3xl mt-12 mb-5">Los turnos de hoy</h2>
             <table id="dataTable" class="w-11/12 m-auto mt-8 mb-10">
                 <thead>
                     <tr class="w-full">
-                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">#</th>
-                        <th class="w-2/12 bg-emerald-300 py-2 border border-black">Nombre</th>
-                        <th class="w-2/12 bg-emerald-300 py-2 border border-black">Fecha</th>
+                        <th class="w-1/5 bg-emerald-300 py-2 border border-black">#</th>
+                        <th class="w-1/5 bg-emerald-300 py-2 border border-black">Nombre</th>
                         <th class="w-2/12 bg-emerald-300 py-2 border border-black">Hora</th>
-                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Motivo</th>
+                        <th class="w-1/5 bg-emerald-300 py-2 border border-black">Motivo</th>
                         <th class="w-1/12 bg-emerald-300 py-2 border border-black">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($tur = $turns->fetch_object()) : ?>
+                    <?php
+
+                    while ($tur = $turns->fetch_object()) :
+                        $dateFormat = date('d-m-Y', strtotime($tur->date));
+                        $hourFormat = date('H:i', strtotime($tur->hour)); ?>
+
                         <tr>
-                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $tur->id; ?></td>
-                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $tur->patient_name; ?></td>
-                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $tur->date; ?></td>
-                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2 px-1"><?= $tur->hour; ?></td>
-                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $tur->appointment; ?></td>
+                            <td class="w-1/5 bg-gray-100 border border-black text-center py-2"><?= $tur->id; ?></td>
+                            <td class="w-1/5 bg-gray-100 border border-black text-center py-2"><?= $tur->patient_name; ?></td>
+                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2 px-1"><?= $hourFormat; ?></td>
+                            <td class="w-1/5 bg-gray-100 border border-black text-center py-2"><?= $tur->appointment; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
                                 <a href="http://localhost/VetSoft/Veterinary/edit/<?php echo $tur->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
                                 <a href="http://localhost/VetSoft/Veterinary/delete/<?php echo $tur->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
@@ -247,7 +250,59 @@ $action = $url[1];
             </table>
 
 
-            <h2 class="text-center text-3xl mt-12 mb-5">Consultar turnos por fecha</h2>
+
+
+
+            <h2 class="text-center text-3xl mt-24 mb-5">Consultar turnos por paciente</h2>
+            <form action="http://localhost/VetSoft/Turn/getTurnsByPatient" method="POST" class="w-11/12 min-h-0 m-auto flex items-center justify-between gap-5" autocomplete="off">
+                <input class="w-3/6 py-2 px-2 border-b-2 border-emerald-500 focus:outline-none focus:border-emerald-800 bg-gray-100" type="text" name="name" placeholder="Ingrese nombre del paciente...">
+                <button class="w-3/6 py-2 bg-emerald-500 hover:bg-emerald-200 duration-300">Buscar <i class="fas fa-search"></i></button>
+            </form>
+
+
+            <?php if (isset($_SESSION['turnsByPatient'])) : ?>
+                <?php if (count($_SESSION['turnsByPatient']) >= 1) : ?>
+                    <table id="dataTable" class="w-11/12 m-auto mt-8 mb-10">
+                        <thead>
+                            <tr class="w-full">
+                                <th class="w-1/12 bg-emerald-300 py-2 border border-black">#</th>
+                                <th class="w-2/12 bg-emerald-300 py-2 border border-black">Paciente</th>
+                                <th class="w-2/12 bg-emerald-300 py-2 border border-black">Dueño</th>
+                                <th class="w-2/12 bg-emerald-300 py-2 border border-black">Fecha</th>
+                                <th class="w-1/12 bg-emerald-300 py-2 border border-black">Hora</th>
+                                <th class="w-2/12 bg-emerald-300 py-2 border border-black">Motivo</th>
+                                <th class="w-1/12 bg-emerald-300 py-2 border border-black">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($_SESSION['turnsByPatient'] as $tur) :
+                                $dateFormat = date('d-m-Y', strtotime($tur->date));
+                                $hourFormat = date('H:i', strtotime($tur->hour));  ?>
+                                <tr>
+                                    <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $tur->turn_id; ?></td>
+                                    <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $tur->patient_name; ?></td>
+                                    <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $tur->owner_name; ?></td>
+                                    <td class="w-2/12 bg-gray-100 border border-black text-center py-2 px-1"><?= $dateFormat; ?></td>
+                                    <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $hourFormat; ?></td>
+                                    <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $tur->appointment; ?></td>
+                                    <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
+                                        <a href="http://localhost/VetSoft/Veterinary/edit/<?php echo $tur->turn_id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
+                                        <a href="http://localhost/VetSoft/Veterinary/delete/<?php echo $tur->turn_id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else : ?>
+                    <h2 class="text-center text-2xl my-12">No hay turnos registrados para ese paciente</h2>
+                <?php endif ?>
+            <?php endif; ?>
+
+
+
+
+
+            <h2 class="text-center text-3xl mt-24 mb-5">Consultar turnos por fecha</h2>
             <div class="w-11/12 m-auto mt-12 mb-12" id='calendar'></div>
 
             <div id="popup" class="absolute hidden duration-400 top-0 left-0 container_form w-screen h-screen bg-black bg-opacity-80 flex items-center justify-center">
@@ -261,11 +316,24 @@ $action = $url[1];
                 </div>
             </div>
 
+
+
+
+
+
+
+
+            
+
+
+
+
+
         </div>
 
     </section>
 
-
+    <?php unset($_SESSION['turnsByPatient']); ?>
 </body>
 
 </html>

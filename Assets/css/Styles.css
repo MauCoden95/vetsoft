@@ -10,9 +10,9 @@
     U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-* {
+/* * {
   font-family: "Raleway Variable";
-}
+} */
 
 .container_form {
   background-color: rgba(0, 0, 0, 0.7);
