@@ -92,5 +92,17 @@ class TurnController
     }
 
  
-   
+    public function delete(){
+        $url = explode('/', $_GET['url']);
+        $id = $url[2];
+
+        $turn = new Turn();
+        $delete = $turn->delete($id);
+
+        if ($delete) {
+            $_SESSION['delete_turn'] = "Turno eliminado";
+        }
+
+        header('Location: http://localhost/VetSoft/Turn/index');
+    }
 }

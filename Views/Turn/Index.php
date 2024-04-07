@@ -26,6 +26,9 @@ $action = $url[1];
     <!--Estilos CSS-->
     <link rel="stylesheet" href="../../Assets/css/Styles.css">
 
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <!--Tailwind CSS-->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -119,12 +122,13 @@ $action = $url[1];
 
                     if (storedTurns) {
                         var turns = JSON.parse(storedTurns);
-                        console.log(turns.length);
+
 
                         if (turns.length === 0) {
                             $("#turns_table").html("<tr><td class='text-center text-xl'>No hay turnos registrados</td></tr>");
                         } else {
                             function createTableRow(turn) {
+                                console.log(turn.turno_id);
                                 var dateFormat = moment(turn.fecha).format('DD-MM-YYYY');
                                 var hourSplit = turn.hora.split('');
                                 hourSplit.splice(hourSplit.length - 3, 3);
@@ -134,19 +138,20 @@ $action = $url[1];
                                 row += "<td class='w-1/5 border border-black text-center py-1'>" + dateFormat + "</td>";
                                 row += "<td class='w-1/5 border border-black text-center py-1'>" + hourFormat + "</td>";
                                 row += "<td class='w-1/5 border border-black text-center py-1'>" + turn.cita + "</td>";
-                                row += "<td class='w-1/6 border border-black text-center py-1'>" + "<button><i class='mr-5 fas fa-edit text-2xl text-blue-500 hover:text-blue-800'></i></button>" + "<button><i class='fas fa-trash text-2xl text-red-500 hover:text-red-800'></i></button>" + "</td>";
+                                row += "<td class='w-1/6 border border-black text-center py-1'>" + "<button><i class='mr-5 fas fa-edit text-2xl text-blue-500 hover:text-blue-800'></i></button>" + `<a href='http://localhost/VetSoft/Turn/delete/${turn.turno_id}'><i class='fas fa-trash text-2xl text-red-500 hover:text-red-800'></i></a>` + "</td>";
                                 row += "</tr>";
                                 return row;
                             }
+
                             var table = $("#turns_table");
                             table.empty();
 
                             var headerRow = "<tr>";
-                            headerRow += '<th class="w-1/5 bg-emerald-500 border border-black py-1">Paciente</th>';
-                            headerRow += '<th class="w-1/5 bg-emerald-500 border border-black py-1">Fecha</th>';;
-                            headerRow += '<th class="w-1/5 bg-emerald-500 border border-black py-1">Hora</th>';
-                            headerRow += '<th class="w-1/5 bg-emerald-500 border border-black py-1">Motivo</th>';
-                            headerRow += '<th class="w-1/6 bg-emerald-500 border border-black py-1">Acciones</th>';
+                            headerRow += '<th class="w-1/5 bg-emerald-500 border border-black py-1 text-center">Paciente</th>';
+                            headerRow += '<th class="w-1/5 bg-emerald-500 border border-black py-1 text-center">Fecha</th>';;
+                            headerRow += '<th class="w-1/5 bg-emerald-500 border border-black py-1 text-center">Hora</th>';
+                            headerRow += '<th class="w-1/5 bg-emerald-500 border border-black py-1 text-center">Motivo</th>';
+                            headerRow += '<th class="w-1/6 bg-emerald-500 border border-black py-1 text-center">Acciones</th>';
                             headerRow += "</tr>";
 
                             table.append(headerRow);
@@ -215,17 +220,21 @@ $action = $url[1];
                 <h2 class="text-2xl">Bienvenido, <?php print_r($_SESSION['user']->name) ?></h2>
             </div>
 
-
+            <?php if (isset($_SESSION['delete_turn'])) : ?>
+                <div class="w-50 text-center alert alert-success m-auto mt-5" role="alert">
+                    <?php print_r($_SESSION['delete_turn']); ?>
+                </div>
+            <?php endif; ?>
 
             <h2 class="text-center text-3xl mt-12 mb-5">Los turnos de hoy</h2>
             <table id="dataTable" class="w-11/12 m-auto mt-8 mb-10">
                 <thead>
                     <tr class="w-full">
-                        <th class="w-1/5 bg-emerald-300 py-2 border border-black">#</th>
-                        <th class="w-1/5 bg-emerald-300 py-2 border border-black">Nombre</th>
-                        <th class="w-2/12 bg-emerald-300 py-2 border border-black">Hora</th>
-                        <th class="w-1/5 bg-emerald-300 py-2 border border-black">Motivo</th>
-                        <th class="w-1/12 bg-emerald-300 py-2 border border-black">Acciones</th>
+                        <th class="w-1/5 bg-emerald-300 py-2 border border-black text-center">#</th>
+                        <th class="w-1/5 bg-emerald-300 py-2 border border-black text-center">Nombre</th>
+                        <th class="w-2/12 bg-emerald-300 py-2 border border-black text-center">Hora</th>
+                        <th class="w-1/5 bg-emerald-300 py-2 border border-black text-center">Motivo</th>
+                        <th class="w-1/12 bg-emerald-300 py-2 border border-black text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -242,7 +251,7 @@ $action = $url[1];
                             <td class="w-1/5 bg-gray-100 border border-black text-center py-2"><?= $tur->appointment; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
                                 <a href="http://localhost/VetSoft/Veterinary/edit/<?php echo $tur->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
-                                <a href="http://localhost/VetSoft/Veterinary/delete/<?php echo $tur->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
+                                <a href="http://localhost/VetSoft/Turn/delete/<?php echo $tur->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
@@ -254,7 +263,7 @@ $action = $url[1];
 
 
             <h2 class="text-center text-3xl mt-24 mb-5">Consultar turnos por paciente</h2>
-            <form action="http://localhost/VetSoft/Turn/getTurnsByPatient" method="POST" class="w-11/12 min-h-0 m-auto flex items-center justify-between gap-5" autocomplete="off">
+            <form action="http://localhost/VetSoft/Turn/getTurnsByPatient" method="POST" class="w-11/12 min-h-0 m-auto mb-5 flex items-center justify-between gap-5" autocomplete="off">
                 <input class="w-3/6 py-2 px-2 border-b-2 border-emerald-500 focus:outline-none focus:border-emerald-800 bg-gray-100" type="text" name="name" placeholder="Ingrese nombre del paciente...">
                 <button class="w-3/6 py-2 bg-emerald-500 hover:bg-emerald-200 duration-300">Buscar <i class="fas fa-search"></i></button>
             </form>
@@ -265,13 +274,13 @@ $action = $url[1];
                     <table id="dataTable" class="w-11/12 m-auto mt-8 mb-10">
                         <thead>
                             <tr class="w-full">
-                                <th class="w-1/12 bg-emerald-300 py-2 border border-black">#</th>
-                                <th class="w-2/12 bg-emerald-300 py-2 border border-black">Paciente</th>
-                                <th class="w-2/12 bg-emerald-300 py-2 border border-black">Dueño</th>
-                                <th class="w-2/12 bg-emerald-300 py-2 border border-black">Fecha</th>
-                                <th class="w-1/12 bg-emerald-300 py-2 border border-black">Hora</th>
-                                <th class="w-2/12 bg-emerald-300 py-2 border border-black">Motivo</th>
-                                <th class="w-1/12 bg-emerald-300 py-2 border border-black">Acciones</th>
+                                <th class="w-1/12 bg-emerald-300 py-2 border border-black text-center">#</th>
+                                <th class="w-2/12 bg-emerald-300 py-2 border border-black text-center">Paciente</th>
+                                <th class="w-2/12 bg-emerald-300 py-2 border border-black text-center">Dueño</th>
+                                <th class="w-2/12 bg-emerald-300 py-2 border border-black text-center">Fecha</th>
+                                <th class="w-1/12 bg-emerald-300 py-2 border border-black text-center">Hora</th>
+                                <th class="w-2/12 bg-emerald-300 py-2 border border-black text-center">Motivo</th>
+                                <th class="w-1/12 bg-emerald-300 py-2 border border-black text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -287,7 +296,7 @@ $action = $url[1];
                                     <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $tur->appointment; ?></td>
                                     <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
                                         <a href="http://localhost/VetSoft/Veterinary/edit/<?php echo $tur->turn_id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
-                                        <a href="http://localhost/VetSoft/Veterinary/delete/<?php echo $tur->turn_id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
+                                        <a href="http://localhost/VetSoft/Turn/delete/<?php echo $tur->turn_id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -308,7 +317,7 @@ $action = $url[1];
             <div id="popup" class="absolute hidden duration-400 top-0 left-0 container_form w-screen h-screen bg-black bg-opacity-80 flex items-center justify-center">
                 <i id="close-popup" class="cursor-pointer absolute top-5 right-5 duration-300 text-white hover:text-gray-400 text-6xl fas fa-times-circle"></i>
 
-                <div class="overflow-scroll	absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5/6 h-[500px] bg-white rounded-md z-40">
+                <div class="overflow-scroll	absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5/6 h-[500px] bg-white rounded-md z-40 overflow-y-scroll">
                     <h2 class="text-center text-3xl my-14">Los turnos del día <span id="day_turn"></span></h2>
                     <table class="w-5/6 m-auto mt-8" id="turns_table">
                         <h2 id="empty"></h2>
@@ -323,7 +332,7 @@ $action = $url[1];
 
 
 
-            
+
 
 
 
@@ -333,7 +342,10 @@ $action = $url[1];
 
     </section>
 
-    <?php unset($_SESSION['turnsByPatient']); ?>
+    <?php 
+        unset($_SESSION['turnsByPatient']);
+        unset($_SESSION['delete_turn']);    
+    ?>
 </body>
 
 </html>

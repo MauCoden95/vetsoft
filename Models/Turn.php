@@ -153,5 +153,19 @@ class Turn
             return [];
         }
     }
+
+    public function delete($id){
+        $sql = "DELETE FROM turns WHERE id = {$id}";
+        $query = $this->db->query($sql);
+
+        $result = false;
+
+        if ($query) {
+            $result = true;
+        }
+
+
+        return $result;
+    }
     
 }
