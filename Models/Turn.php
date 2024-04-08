@@ -127,6 +127,18 @@ class Turn
     }
 
 
+    public function count(){
+        $sql = "SELECT COUNT(*) AS cantidad_de_registros FROM turns WHERE DATE(date) = CURDATE();
+        ";
+        $query = $this->db->query($sql);
+
+        $count = $query->fetch_object();
+
+        return $count;
+    }
+
+
+
     public function turnsByPatient($name)
     {
         $sql = "SELECT t.id AS turn_id, 
@@ -167,5 +179,28 @@ class Turn
 
         return $result;
     }
-    
+
+    public function dataTurn($id){
+        $sql = "SELECT * FROM turns WHERE id = {$id}";
+        $query = $this->db->query($sql);
+
+        if ($query) {
+            $result = $query->fetch_object();
+        }
+
+        return $result;
+    }
+ 
+    public function update($id){
+        $sql = "UPDATE turns SET date = '{$this->getDate()}', hour = '{$this->getHour()}', appointment = '{$this->getAppointment()}' WHERE id = {$id}";
+        $query = $this->db->query($sql);
+
+        $result = false;
+
+        if ($query) {
+            $result = true;
+        }
+
+        return $result;
+    }
 }

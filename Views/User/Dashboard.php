@@ -21,9 +21,9 @@
                 </div>
 
                 <div class="relative overflow-hidden w-52 h-28 rounded-md bg-emerald-400">
-                    <h2 class="text-lg text-center mt-3">Pacientes</h2>
-                    <h2 class="absolute -bottom-5 text-7xl text-emerald-800"><i class="fas fa-bone"></i></h2>
-                    <h3 class="absolute bottom-3 right-3 text-5xl"><?php print_r($patients_count->cantidad_de_registros); ?></h3>
+                    <h2 class="text-lg text-center mt-3">Turnos de hoy</h2>
+                    <h2 class="absolute -bottom-5 text-7xl text-emerald-800"><i class="fas fa-calendar"></i></h2>
+                    <h3 class="absolute bottom-3 right-3 text-5xl"><?php print_r($turns_count->cantidad_de_registros); ?></h3>
                 </div>
 
                 <div class="relative overflow-hidden w-52 h-28 rounded-md bg-emerald-400">

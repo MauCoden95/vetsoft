@@ -105,4 +105,59 @@ class TurnController
 
         header('Location: http://localhost/VetSoft/Turn/index');
     }
+
+    public function edit(){
+        $url = explode('/', $_GET['url']);
+        $id = $url[2];
+
+        $turn = new Turn();
+        $data = $turn->dataTurn($id);
+
+        require_once('Views/Turn/Edit.php');
+    }
+
+    public function update()
+    {
+        $turn = new Turn();
+        $url = explode('/', $_GET['url']);
+        $id = $url[2];
+
+
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $date = isset($_POST['date']) ? $_POST['date'] : '';
+            $hour = isset($_POST['hour']) ? $_POST['hour'] : '';
+            $appointment = isset($_POST['appointment']) ? $_POST['appointment'] : '';
+
+          
+
+            if ($date == '' || $hour == '' || $appointment == '') {
+                $_SESSION['update_turn_failed'] = "Campos vacíos";
+            } else {
+                $turn->setDate($date);
+                $turn->setHour($hour);
+                $turn->setAppointment($appointment);
+
+                
+                
+
+                $update = $turn->update($id);
+
+                
+
+                if ($update) {
+                    $_SESSION['update_turn'] = true;
+                } else {
+                    $_SESSION['update_turn_failed'] = "Error al actualizar el turno";
+                }
+
+                
+            }
+        }
+
+        
+
+        header("Location: http://localhost/VetSoft/Turn/edit/" . $id);
+        exit();
+    }
 }

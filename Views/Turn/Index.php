@@ -26,8 +26,8 @@ $action = $url[1];
     <!--Estilos CSS-->
     <link rel="stylesheet" href="../../Assets/css/Styles.css">
 
-    <!--Bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    
 
     <!--Tailwind CSS-->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -138,7 +138,7 @@ $action = $url[1];
                                 row += "<td class='w-1/5 border border-black text-center py-1'>" + dateFormat + "</td>";
                                 row += "<td class='w-1/5 border border-black text-center py-1'>" + hourFormat + "</td>";
                                 row += "<td class='w-1/5 border border-black text-center py-1'>" + turn.cita + "</td>";
-                                row += "<td class='w-1/6 border border-black text-center py-1'>" + "<button><i class='mr-5 fas fa-edit text-2xl text-blue-500 hover:text-blue-800'></i></button>" + `<a href='http://localhost/VetSoft/Turn/delete/${turn.turno_id}'><i class='fas fa-trash text-2xl text-red-500 hover:text-red-800'></i></a>` + "</td>";
+                                row += "<td class='w-1/6 border border-black text-center py-1'>" + "<button>"+`<a href='http://localhost/VetSoft/Turn/edit/${turn.turno_id}'><i class='mr-5 fas fa-edit text-2xl text-blue-500 hover:text-blue-800'></i></a>`+"" + `<a href='http://localhost/VetSoft/Turn/delete/${turn.turno_id}'><i class='fas fa-trash text-2xl text-red-500 hover:text-red-800'></i></a>` + "</td>";
                                 row += "</tr>";
                                 return row;
                             }
@@ -221,7 +221,7 @@ $action = $url[1];
             </div>
 
             <?php if (isset($_SESSION['delete_turn'])) : ?>
-                <div class="w-50 text-center alert alert-success m-auto mt-5" role="alert">
+                <div class="w-2/4 text-center m-auto mt-5 text-2xl py-3 border-2 border-emerald-900 bg-emerald-500 text-emerald-900" role="alert">
                     <?php print_r($_SESSION['delete_turn']); ?>
                 </div>
             <?php endif; ?>
@@ -250,7 +250,7 @@ $action = $url[1];
                             <td class="w-2/12 bg-gray-100 border border-black text-center py-2 px-1"><?= $hourFormat; ?></td>
                             <td class="w-1/5 bg-gray-100 border border-black text-center py-2"><?= $tur->appointment; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
-                                <a href="http://localhost/VetSoft/Veterinary/edit/<?php echo $tur->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
+                                <a href="http://localhost/VetSoft/Turn/edit/<?php echo $tur->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
                                 <a href="http://localhost/VetSoft/Turn/delete/<?php echo $tur->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
                             </td>
                         </tr>
@@ -295,7 +295,7 @@ $action = $url[1];
                                     <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $hourFormat; ?></td>
                                     <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $tur->appointment; ?></td>
                                     <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
-                                        <a href="http://localhost/VetSoft/Veterinary/edit/<?php echo $tur->turn_id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
+                                        <a href="http://localhost/VetSoft/Turn/edit/<?php echo $tur->turn_id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
                                         <a href="http://localhost/VetSoft/Turn/delete/<?php echo $tur->turn_id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
                                     </td>
                                 </tr>

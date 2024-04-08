@@ -3,6 +3,7 @@ require_once 'Models/User.php';
 require_once 'Models/Owner.php';
 require_once 'Models/Patient.php';
 require_once 'Models/Veterinary.php';
+require_once 'Models/Turn.php';
 
 class UserController
 {
@@ -47,10 +48,12 @@ class UserController
         $owner = new Owner();
         $patient = new Patient();
         $veterinary = new Veterinary();
+        $turn = new Turn();
 
         $owners_count = $owner->count();
         $patients_count = $patient->count();
         $veterinaries_count = $veterinary->count();
+        $turns_count = $turn->count();
 
         require_once 'Views/User/Dashboard.php';
     }
