@@ -49,7 +49,7 @@
                     ?>
                         <tr>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->id; ?></td>
-                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->name; ?></td>
+                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><a class="text-emerald-500 hover:text-emerald-800 hover:underline" href="http://localhost/VetSoft/History/index/<?php echo $pat->id ?>"><?= $pat->name; ?></a></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->animal; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->breed; ?></td>
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $ageString; ?></td>

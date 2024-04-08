@@ -230,11 +230,11 @@ $action = $url[1];
             <table id="dataTable" class="w-11/12 m-auto mt-8 mb-10">
                 <thead>
                     <tr class="w-full">
-                        <th class="w-1/5 bg-emerald-300 py-2 border border-black text-center">#</th>
+                        <th class="w-2/12 bg-emerald-300 py-2 border border-black text-center">#</th>
                         <th class="w-1/5 bg-emerald-300 py-2 border border-black text-center">Nombre</th>
                         <th class="w-2/12 bg-emerald-300 py-2 border border-black text-center">Hora</th>
-                        <th class="w-1/5 bg-emerald-300 py-2 border border-black text-center">Motivo</th>
-                        <th class="w-1/12 bg-emerald-300 py-2 border border-black text-center">Acciones</th>
+                        <th class="w-2/5 bg-emerald-300 py-2 border border-black text-center">Motivo</th>
+                        <th class="w-2/5 bg-emerald-300 py-2 border border-black text-center px-3">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -245,11 +245,11 @@ $action = $url[1];
                         $hourFormat = date('H:i', strtotime($tur->hour)); ?>
 
                         <tr>
-                            <td class="w-1/5 bg-gray-100 border border-black text-center py-2"><?= $tur->id; ?></td>
+                            <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $tur->id; ?></td>
                             <td class="w-1/5 bg-gray-100 border border-black text-center py-2"><?= $tur->patient_name; ?></td>
                             <td class="w-2/12 bg-gray-100 border border-black text-center py-2 px-1"><?= $hourFormat; ?></td>
-                            <td class="w-1/5 bg-gray-100 border border-black text-center py-2"><?= $tur->appointment; ?></td>
-                            <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
+                            <td class="w-2/5 bg-gray-100 border border-black text-center py-2"><?= $tur->appointment; ?></td>
+                            <td class="w-2/5 bg-gray-100 border border-black text-center py-2 px-3">
                                 <a href="http://localhost/VetSoft/Turn/edit/<?php echo $tur->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
                                 <a href="http://localhost/VetSoft/Turn/delete/<?php echo $tur->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
                             </td>
