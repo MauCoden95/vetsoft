@@ -23,3 +23,6 @@
   background-color: red !important;
 }
 
+.custom-textarea {
+  height: 72px; /* Ajusta la altura según lo necesites */
+}

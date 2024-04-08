@@ -42,7 +42,7 @@ class VeterinaryController
             $url = explode('/', $_GET['url']);
             $id = $url[2];
 
-            //$data['id'] = $id;
+           
 
             $data = $veterinary->data($id);
 
