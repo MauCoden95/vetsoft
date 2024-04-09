@@ -192,4 +192,51 @@ class UserController
         header('Location: http://localhost/VetSoft/User/users');
         exit();
     }
+
+    public function edit(){
+        $url = explode('/', $_GET['url']);
+        $id = $url[2];
+
+        $user = new User();
+        $data = $user->data($id);
+
+        
+
+        require_once 'Views/User/Edit.php';
+    }
+
+    public function update()
+    {
+        $user = new User();
+        $url = explode('/', $_GET['url']);
+        $id = $url[2];
+
+
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $role_id = isset($_POST['role_id']) ? $_POST['role_id'] : '';
+            $name = isset($_POST['name']) ? $_POST['name'] : '';
+            $mail = isset($_POST['mail']) ? $_POST['mail'] : '';
+
+            if ($role_id == '' || $name == '' || $mail == '') {
+                $_SESSION['update_user_failed'] = "Campos vacíos";
+            } else {
+                $user->setRoleId($role_id);
+                $user->setName($name);
+                $user->setMail($mail);
+
+                $update = $user->update($id);
+
+                if ($update) {
+                    $_SESSION['update_user'] = true;
+                } else {
+                    $_SESSION['update_user_failed'] = "Error al actualizar el usuario";
+                }
+            }
+        }
+
+
+        header("Location: http://localhost/VetSoft/User/edit/" . $id);
+        exit();
+    }
 }

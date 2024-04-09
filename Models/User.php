@@ -173,6 +173,34 @@ class User{
 
         return $result;
     }
+
+    public function data($id){
+        $sql = "SELECT users.id AS id, roles.id As role_id, roles.role AS role_name, users.name AS name, users.mail AS mail
+        FROM users
+        JOIN roles ON users.role_id = roles.id
+        WHERE users.id = {$id};";
+        $query = $this->db->query($sql);
+
+        if ($query) {
+            $result = $query->fetch_object();
+        }
+
+        return $result;
+    }
+
+    public function update($id){
+        $sql = "UPDATE users SET role_id = {$this->getRoleId()}, name = '{$this->getName()}', mail = '{$this->getMail()}' WHERE id = {$id}";
+        
+        $query = $this->db->query($sql);
+
+        $result = false;
+
+        if ($query) {
+            $result = true;
+        }
+
+        return $result;
+    }
 }
 
 

@@ -45,7 +45,7 @@ $count = $result->{'count(*)'} = 4;
                     <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $user->role; ?></td>
                     <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $user->email; ?></td>
                     <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
-                        <a href="http://localhost/VetSoft/Veterinary/edit/<?php echo $user->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
+                        <a href="http://localhost/VetSoft/User/edit/<?php echo $user->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
                         <button class="delete_user" data-id="<?= $user->id; ?>"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></button>
                     </td>
                 </tr>
