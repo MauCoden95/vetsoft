@@ -138,7 +138,7 @@ $action = $url[1];
                                 row += "<td class='w-1/5 border border-black text-center py-1'>" + dateFormat + "</td>";
                                 row += "<td class='w-1/5 border border-black text-center py-1'>" + hourFormat + "</td>";
                                 row += "<td class='w-1/5 border border-black text-center py-1'>" + turn.cita + "</td>";
-                                row += "<td class='w-1/6 border border-black text-center py-1'>" + "<button>"+`<a href='http://localhost/VetSoft/Turn/edit/${turn.turno_id}'><i class='mr-5 fas fa-edit text-2xl text-blue-500 hover:text-blue-800'></i></a>`+"" + `<a href='http://localhost/VetSoft/Turn/delete/${turn.turno_id}'><i class='fas fa-trash text-2xl text-red-500 hover:text-red-800'></i></a>` + "</td>";
+                                row += "<td class='w-1/6 border border-black text-center py-1'>" +`<a href='http://localhost/VetSoft/Turn/edit/${turn.turno_id}'><i class='mr-5 fas fa-edit text-2xl text-blue-500 hover:text-blue-800'></i></a>`+"" + `<button class="delete_tur" data-id="${turn.turno_id}"><i class="text-xl ml-2 fas fa-trash text-red-500 hover:text-red-800"></i></button>` + "</td>";
                                 row += "</tr>";
                                 return row;
                             }
@@ -251,7 +251,7 @@ $action = $url[1];
                             <td class="w-2/5 bg-gray-100 border border-black text-center py-2"><?= $tur->appointment; ?></td>
                             <td class="w-2/5 bg-gray-100 border border-black text-center py-2 px-3">
                                 <a href="http://localhost/VetSoft/Turn/edit/<?php echo $tur->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
-                                <a href="http://localhost/VetSoft/Turn/delete/<?php echo $tur->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
+                                <button class="delete_tur" data-id="<?= $tur->id; ?>"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></button>
                             </td>
                         </tr>
                     <?php endwhile; ?>
@@ -280,7 +280,7 @@ $action = $url[1];
                                 <th class="w-2/12 bg-emerald-300 py-2 border border-black text-center">Fecha</th>
                                 <th class="w-1/12 bg-emerald-300 py-2 border border-black text-center">Hora</th>
                                 <th class="w-2/12 bg-emerald-300 py-2 border border-black text-center">Motivo</th>
-                                <th class="w-1/12 bg-emerald-300 py-2 border border-black text-center">Acciones</th>
+                                <th class="w-2/12 bg-emerald-300 py-2 border border-black text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -294,9 +294,9 @@ $action = $url[1];
                                     <td class="w-2/12 bg-gray-100 border border-black text-center py-2 px-1"><?= $dateFormat; ?></td>
                                     <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $hourFormat; ?></td>
                                     <td class="w-2/12 bg-gray-100 border border-black text-center py-2"><?= $tur->appointment; ?></td>
-                                    <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
+                                    <td class="w-2/12 bg-gray-100 border border-black text-center py-2">
                                         <a href="http://localhost/VetSoft/Turn/edit/<?php echo $tur->turn_id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
-                                        <a href="http://localhost/VetSoft/Turn/delete/<?php echo $tur->turn_id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
+                                        <button class="delete_tur" data-id="<?= $tur->turn_id; ?>"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

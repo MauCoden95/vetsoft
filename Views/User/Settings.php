@@ -9,24 +9,30 @@
             <form class="w-4/6 h-72 m-auto mt-20" action="<?= base_url ?>User/change" method="post">
                 <?php
                 if (isset($_SESSION['change_success']) && $_SESSION['change_success'] == true) {
-                    $res = $_SESSION['change_success']; ?>
+                    unset($_SESSION['user']); ?>
                     <script>
                         localStorage.setItem("state_owner", false);
                         Swal.fire({
                             position: "center",
                             icon: "success",
                             title: "Exito!!!",
-                            html: "<p style='font-size: 18px;'>Contraseña cambiada correctamente</p>",
-                            timer: 5000,
-                            showConfirmButton: true,
-                            confirmButtonText: "OK",
+                            html: `
+                            <p style='font-size: 18px;'>Contraseña cambiada correctamente</p>
+                            <p style='font-size: 16px; color: red; margin-top: 10px;'>Deberá volver a iniciar sesión</p>
+                            `,
+                            timer: 3000
                         });
+                        setTimeout(function() {
+                            window.location.href = 'http://localhost/VetSoft/User/index';
+                        }, 3500); 
+
+                        
                     </script>
                 <?php
                     unset($_SESSION['change_success']);
                 }
                 ?>
-                <?php 
+                <?php
                 if (isset($_SESSION['change_failed'])) { ?>
                     <script>
                         Swal.fire({

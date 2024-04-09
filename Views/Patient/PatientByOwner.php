@@ -52,7 +52,7 @@
                     <td class="w-1/12 bg-gray-100 border border-black text-center py-2"><?= $pat->gender; ?></td>
                     <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
                         <a href="http://localhost/VetSoft/Patient/edit/<?php echo $pat->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-5"></i></a>
-                        <a href="http://localhost/VetSoft/Patient/delete/<?php echo $pat->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></a>
+                        <button class="delete_pat" data-id="<?= $pat->id; ?>"><i class="text-xl ml-2 fas fa-trash text-red-500 hover:text-red-800"></i></button>
                     </td>
                 </tr>
             <?php endwhile; ?>
@@ -102,7 +102,7 @@
                         </script>
                     <?php }
                     ?>
-                    <div class="w-full h-full grid grid-cols-2 grid-rows-4 gap-2">
+                    <div class="w-full h-full grid grid-cols-2 grid-rows-3 gap-2">
                         <input class="w-full m-auto my-1 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="name" placeholder="Nombre...">
                         <input class="w-full m-auto my-1 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="animal" placeholder="Animal...">
                         <input class="w-full m-auto my-1 py-3 px-5 border-b-2 border-emerald-500 bg-gray-100" type="text" name="breed" placeholder="Raza...">

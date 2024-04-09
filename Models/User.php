@@ -126,7 +126,53 @@ class User{
         return $result;
     }
 
+    public function count(){
+        $sql = "SELECT count(*) AS cantidad_de_registros FROM users";
+        $query = $this->db->query($sql);
 
+        $count = $query->fetch_object();
+
+        return $count;       
+    }
+
+    public function list(){
+        $sql = "SELECT u.id AS id , u.role_id, u.name AS name, r.role, u.mail AS email
+        FROM users u
+        JOIN roles r ON u.role_id = r.id;
+        ";
+        $query = $this->db->query($sql);
+
+        if ($query) {
+            $result = $query;
+        }
+
+        return $result;
+    }
+
+    public function delete($id){
+        $sql = "DELETE FROM users WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $id);
+    
+        $result = $stmt->execute();
+        
+        return $result;
+    }
+
+    
+    public function save(){
+        $sql = "INSERT INTO users (role_id,name,mail,password) VALUES({$this->getRoleId()},'{$this->getName()}','{$this->getMail()}','{$this->getPassword()}')";
+
+        
+        $save = $this->db->query($sql);
+        $result = false;
+
+        if ($save) {
+            $result = true;
+        }
+
+        return $result;
+    }
 }
 
 

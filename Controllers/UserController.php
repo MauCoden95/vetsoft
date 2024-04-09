@@ -74,6 +74,7 @@ class UserController
                     session_start();
                     $_SESSION['user'] = $login;
                     unset($_SESSION['login']);
+                    $_SESSION['login_success'] = true;
                     header('Location: /VetSoft/User/dashboard');
                     exit();
                 } else {
@@ -93,8 +94,8 @@ class UserController
     public function logout()
     {
         session_destroy();
-        header('Location: /VetSoft/User/index');
-        exit();
+        // header('Location: /VetSoft/User/index');
+        // exit();
     }
 
     public function settings()
@@ -130,5 +131,65 @@ class UserController
         }
 
         header('Location: /VetSoft/User/settings');
+    }
+
+    public function users(){
+        $user = new User();
+        $users_count = $user->count();
+        $list = $user->list();
+
+
+        require_once 'Views/User/Index.php';
+    }
+
+
+    public function delete()
+    {
+        $user = new User();
+
+        if ($_GET) {
+            $url = explode('/', $_GET['url']);
+            $id = $url[2];
+
+            $delete = $user->delete($id);
+
+            if ($delete) {
+                header('Location: http://localhost/VetSoft/User/users');
+            }
+        }
+    }
+
+    public function save()
+    {
+        $user = new User();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $role_id = isset($_POST['role_id']) ? $_POST['role_id'] : '';
+            $name = isset($_POST['name']) ? $_POST['name'] : '';
+            $mail = isset($_POST['mail']) ? $_POST['mail'] : '';
+
+            if ($role_id == '' || $name == '' || $mail == '') {
+                $_SESSION['save_user_failed'] = "Campos vacíos";
+            } else {
+                $user->setRoleId($role_id);
+                $user->setName($name);
+                $user->setMail($mail);
+                $user->setPassword("nuevousuario");
+
+                
+
+                $save = $user->save();
+
+                if ($save) {
+                    $_SESSION['save_user'] = true;
+                    unset($_SESSION['save_user_failed']);
+                } else {
+                    $_SESSION['save_user_failed'] = "Hubo un error al guardar";
+                }
+            }
+        }
+
+        header('Location: http://localhost/VetSoft/User/users');
+        exit();
     }
 }

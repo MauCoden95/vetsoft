@@ -38,7 +38,7 @@
                         <td class="w-1/12 px-3 bg-gray-100 border border-black text-center py-2"><?= $dateFormat; ?></td>
                         <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
                             <a href="http://localhost/VetSoft/History/edit/<?php echo $pat->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-8"></i></a>
-                            <a href="http://localhost/VetSoft/History/delete/<?php echo $pat->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800 mr-2"></i></a>
+                            <button class="delete_his" data-id="<?= $pat->id; ?>"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800"></i></button>
                         </td>
                     </tr>
                 <?php endwhile; ?>

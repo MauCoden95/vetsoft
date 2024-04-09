@@ -57,8 +57,8 @@
                             <td class="w-1/12 bg-gray-100 border border-black text-center py-2">
                                 <a class="text-emerald-500 duration-300 hover:underline" title="Info del dueño" href="http://localhost/VetSoft/Owner/ownerData/<?php echo $pat->owner_id ?>"><i class="text-xl fas fa-book text-blue-500 hover:text-blue-800 mr-2"></i></a>
                                 <a href="http://localhost/VetSoft/Patient/edit/<?php echo $pat->id ?>" title="Editar"><i class="text-xl fas fa-pencil-alt text-cyan-500 hover:text-cyan-800 mr-2"></i></a>
-                                <a href="http://localhost/VetSoft/Patient/delete/<?php echo $pat->id ?>" title="Eliminar"><i class="text-xl fas fa-trash text-red-500 hover:text-red-800 mr-2"></i></a>
                                 <a href="http://localhost/VetSoft/Turn/addTurnPatient/<?php echo $pat->id ?>" title="Agendar Turno"><i class="text-xl far fa-calendar text-green-500 hover:text-green-800"></i></a>
+                                <button class="delete_pat" data-id="<?= $pat->id; ?>"><i class="text-xl ml-2 fas fa-trash text-red-500 hover:text-red-800"></i></button>
                             </td>
                         </tr>
                     <?php endwhile; ?>

@@ -6,7 +6,7 @@
                 <h2 class="text-2xl">Bienvenido, <?php print_r($_SESSION['user']->name) ?></h2>
             </div>
 
-            <form class="relative w-5/6 min-h-0 m-auto my-12" action="http://localhost/VetSoft/Owner/update/<?php echo $id ?>" method="post">
+            <form class="relative w-11/12 min-h-0 m-auto my-12" action="http://localhost/VetSoft/Owner/update/<?php echo $id ?>" method="post">
                 <a class="text-xl" href="http://localhost/VetSoft/Owner/index"><i class="fas fa-arrow-left"></i> Volver</a>
                 <h2 class="w-full text-center text-3xl mb-6">Editar Cliente <i class="fas fa-pencil"></i></h2>
                 <?php
